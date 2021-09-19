@@ -2,7 +2,7 @@
     "type": "package",
     "name": "ostev/eldarel",
     "summary": "A WebGL-based 2D graphics engine",
-    "license": "MIT",
+    "license": "BSD-3-Clause",
     "version": "0.0.1",
     "exposed-modules": [
         "Eldarel"
