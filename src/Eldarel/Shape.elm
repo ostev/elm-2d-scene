@@ -7,7 +7,7 @@ module Eldarel.Shape exposing
     )
 
 import Eldarel.Dimensions as Dimensions exposing (Dimensions)
-import Eldarel.Internal.Render as Render exposing (Vertex)
+import Eldarel.Internal.Vertex as Vertex exposing (Vertex)
 import Eldarel.Point as Point exposing (Point, point)
 import Eldarel.Texture exposing (Texture)
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
@@ -26,7 +26,7 @@ tupleMapThree f ( x, y, z ) =
 triangles : List ( Point, Point, Point ) -> Shape
 triangles positions =
     positions
-        |> List.map (tupleMapThree (Point.toVec2 >> Render.toVertex))
+        |> List.map (tupleMapThree Vertex.fromPoint)
         |> Vertices
 
 
