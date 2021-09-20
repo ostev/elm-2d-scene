@@ -1,7 +1,7 @@
-module Eldarel.Camera exposing (Camera, fromRecord, getDimensions)
+module Render.Camera exposing (Camera, fromRecord, getDimensions)
 
-import Eldarel.Dimensions exposing (Dimensions)
-import Eldarel.Point as Point exposing (Point)
+import Render.Dimensions exposing (Dimensions)
+import Render.Point as Point exposing (Point)
 
 
 type Camera

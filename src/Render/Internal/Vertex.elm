@@ -1,10 +1,10 @@
-module Eldarel.Internal.Vertex exposing
+module Render.Internal.Vertex exposing
     ( Vertex
     , fromPoint
     , fromVec2
     )
 
-import Eldarel.Point as Point exposing (Point)
+import Render.Point as Point exposing (Point)
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
 
 

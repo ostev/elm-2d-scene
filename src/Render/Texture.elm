@@ -1,6 +1,6 @@
-module Eldarel.Texture exposing (Texture, texture)
+module Render.Texture exposing (Texture, texture)
 
-import Eldarel.Dimensions exposing (Dimensions)
+import Render.Dimensions exposing (Dimensions)
 
 type alias Location =
     String

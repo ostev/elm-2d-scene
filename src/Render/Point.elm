@@ -1,4 +1,4 @@
-module Eldarel.Point exposing
+module Render.Point exposing
     ( Point
     , point
     , toVec2

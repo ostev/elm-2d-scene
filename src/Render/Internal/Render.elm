@@ -1,9 +1,9 @@
-module Eldarel.Internal.Render exposing (makeCamera, makeProjection)
+module Render.Internal.Render exposing (makeCamera, makeProjection)
 
-import Eldarel.Camera as Camera exposing (Camera)
-import Eldarel.Dimensions as Dimensions exposing (Dimensions)
-import Eldarel.Internal.Vertex as Vertex exposing (Vertex)
-import Eldarel.Shape as Shape exposing (Shape)
+import Render.Camera as Camera exposing (Camera)
+import Render.Dimensions as Dimensions exposing (Dimensions)
+import Render.Internal.Vertex as Vertex exposing (Vertex)
+import Render.Shape as Shape exposing (Shape)
 import Math.Matrix4 as Mat4 exposing (Mat4)
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
 import WebGL

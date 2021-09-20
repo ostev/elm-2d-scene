@@ -1,4 +1,4 @@
-module Eldarel.Shape exposing
+module Render.Shape exposing
     ( Shape
     , rectangle
     , textured
@@ -6,10 +6,10 @@ module Eldarel.Shape exposing
     , triangles
     )
 
-import Eldarel.Dimensions as Dimensions exposing (Dimensions)
-import Eldarel.Internal.Vertex as Vertex exposing (Vertex)
-import Eldarel.Point as Point exposing (Point, point)
-import Eldarel.Texture exposing (Texture)
+import Render.Dimensions as Dimensions exposing (Dimensions)
+import Render.Internal.Vertex as Vertex exposing (Vertex)
+import Render.Point as Point exposing (Point, point)
+import Render.Texture exposing (Texture)
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
 
 

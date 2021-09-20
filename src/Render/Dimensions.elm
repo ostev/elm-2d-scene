@@ -1,4 +1,4 @@
-module Eldarel.Dimensions exposing
+module Render.Dimensions exposing
     ( Dimensions
     , dimensions
     , fromRecord
