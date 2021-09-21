@@ -1,4 +1,4 @@
-module TopDown exposing (main)
+module Rectangle exposing (main)
 
 import Browser
 import Render.Shape as Shape
