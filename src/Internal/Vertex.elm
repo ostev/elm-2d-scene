@@ -5,7 +5,7 @@ module Internal.Vertex exposing
     )
 
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
-import Render.Point as Point exposing (Point)
+import Scene2d.Point as Point exposing (Point)
 
 
 type alias Vertex =

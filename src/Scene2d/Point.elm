@@ -1,4 +1,4 @@
-module Render.Point exposing
+module Scene2d.Point exposing
     ( Point
     , first
     , point

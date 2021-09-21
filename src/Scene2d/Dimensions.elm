@@ -1,4 +1,4 @@
-module Render.Dimensions exposing
+module Scene2d.Dimensions exposing
     ( Dimensions
     , dimensions
     , fromRecord

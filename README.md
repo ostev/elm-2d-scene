@@ -1,2 +1,5 @@
-# `elm-render`
-An Elm 2D WebGL-based rendering engine. WIP.
+# `elm-2d-scene`
+
+🚧 This page is under construction. `elm-2d-scene` is not ready for consumpution. 🚧
+
+A WebGL-based 2D rendering library that requires no knowledge of WebGL to use.

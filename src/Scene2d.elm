@@ -1,14 +1,14 @@
-module Render exposing (toHtml)
+module Scene2d exposing (toHtml)
 
 import Html exposing (Html, div)
 import Html.Attributes exposing (height, style, width)
 import Internal.Render
 import Math.Matrix4 as Mat4 exposing (Mat4)
-import Render.Shape as Shape exposing (Shape)
-import Render.Point as Point exposing (Point, point)
-import Render.Dimensions as Dimensions exposing (Dimensions,
+import Scene2d.Shape as Shape exposing (Shape)
+import Scene2d.Point as Point exposing (Point, point)
+import Scene2d.Dimensions as Dimensions exposing (Dimensions,
     dimensions)
-import Render.Camera as Camera exposing (Camera)
+import Scene2d.Camera as Camera exposing (Camera)
 import WebGL
 
 

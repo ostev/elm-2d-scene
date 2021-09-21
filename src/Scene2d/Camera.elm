@@ -1,12 +1,12 @@
-module Render.Camera exposing
+module Scene2d.Camera exposing
     ( Camera
     , dimensions
     , fromRecord
     , position
     )
 
-import Render.Dimensions exposing (Dimensions)
-import Render.Point as Point exposing (Point)
+import Scene2d.Dimensions exposing (Dimensions)
+import Scene2d.Point as Point exposing (Point)
 
 
 {-| Represents a camera in two-dimensional

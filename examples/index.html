@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>TopDown</title>
+  <title>Rectangle</title>
   <style>body { padding: 0; margin: 0; }</style>
 </head>
 
@@ -7034,34 +7034,34 @@ var $elm$browser$Browser$sandbox = function (impl) {
 			view: impl.view
 		});
 };
-var $author$project$TopDown$update = function (_v0) {
+var $author$project$Rectangle$update = function (_v0) {
 	return $elm$core$Basics$identity;
 };
-var $author$project$Render$Dimensions$Dimensions = F2(
+var $author$project$Scene2d$Dimensions$Dimensions = F2(
 	function (a, b) {
 		return {$: 'Dimensions', a: a, b: b};
 	});
-var $author$project$Render$Dimensions$dimensions = $author$project$Render$Dimensions$Dimensions;
-var $author$project$Render$Point$Point = function (a) {
+var $author$project$Scene2d$Dimensions$dimensions = $author$project$Scene2d$Dimensions$Dimensions;
+var $author$project$Scene2d$Point$Point = function (a) {
 	return {$: 'Point', a: a};
 };
 var $elm_explorations$linear_algebra$Math$Vector2$vec2 = _MJS_v2;
-var $author$project$Render$Point$point = F2(
+var $author$project$Scene2d$Point$point = F2(
 	function (x, y) {
-		return $author$project$Render$Point$Point(
+		return $author$project$Scene2d$Point$Point(
 			A2($elm_explorations$linear_algebra$Math$Vector2$vec2, x, y));
 	});
 var $elm_explorations$linear_algebra$Math$Vector2$getX = _MJS_v2getX;
-var $author$project$Render$Point$first = function (_v0) {
+var $author$project$Scene2d$Point$first = function (_v0) {
 	var vec = _v0.a;
 	return $elm_explorations$linear_algebra$Math$Vector2$getX(vec);
 };
-var $author$project$Render$Dimensions$height = function (_v0) {
+var $author$project$Scene2d$Dimensions$height = function (_v0) {
 	var heightD = _v0.b;
 	return heightD;
 };
 var $elm_explorations$linear_algebra$Math$Vector2$getY = _MJS_v2getY;
-var $author$project$Render$Point$second = function (_v0) {
+var $author$project$Scene2d$Point$second = function (_v0) {
 	var vec = _v0.a;
 	return $elm_explorations$linear_algebra$Math$Vector2$getY(vec);
 };
@@ -7083,12 +7083,12 @@ var $author$project$Internal$Vertex$fromVec2 = function (pos) {
 		pos,
 		A2($elm_explorations$linear_algebra$Math$Vector2$vec2, 0, 0));
 };
-var $author$project$Render$Point$toVec2 = function (_v0) {
+var $author$project$Scene2d$Point$toVec2 = function (_v0) {
 	var vec = _v0.a;
 	return vec;
 };
-var $author$project$Internal$Vertex$fromPoint = A2($elm$core$Basics$composeR, $author$project$Render$Point$toVec2, $author$project$Internal$Vertex$fromVec2);
-var $author$project$Render$Shape$tupleMapThree = F2(
+var $author$project$Internal$Vertex$fromPoint = A2($elm$core$Basics$composeR, $author$project$Scene2d$Point$toVec2, $author$project$Internal$Vertex$fromVec2);
+var $author$project$Scene2d$Shape$tupleMapThree = F2(
 	function (f, _v0) {
 		var x = _v0.a;
 		var y = _v0.b;
@@ -7098,47 +7098,47 @@ var $author$project$Render$Shape$tupleMapThree = F2(
 			f(y),
 			f(z));
 	});
-var $author$project$Render$Shape$triangles = function (positions) {
+var $author$project$Scene2d$Shape$triangles = function (positions) {
 	return $author$project$Internal$Shape$Triangles(
 		A2(
 			$elm$core$List$map,
-			$author$project$Render$Shape$tupleMapThree($author$project$Internal$Vertex$fromPoint),
+			$author$project$Scene2d$Shape$tupleMapThree($author$project$Internal$Vertex$fromPoint),
 			positions));
 };
-var $author$project$Render$Dimensions$width = function (_v0) {
+var $author$project$Scene2d$Dimensions$width = function (_v0) {
 	var widthD = _v0.a;
 	return widthD;
 };
-var $author$project$Render$Shape$rectangle = F2(
+var $author$project$Scene2d$Shape$rectangle = F2(
 	function (dimensions, position) {
-		var y1 = $author$project$Render$Point$second(position);
-		var y2 = y1 + $author$project$Render$Dimensions$height(dimensions);
-		var x1 = $author$project$Render$Point$first(position);
-		var x2 = x1 + $author$project$Render$Dimensions$width(dimensions);
-		return $author$project$Render$Shape$triangles(
+		var y1 = $author$project$Scene2d$Point$second(position);
+		var y2 = y1 + $author$project$Scene2d$Dimensions$height(dimensions);
+		var x1 = $author$project$Scene2d$Point$first(position);
+		var x2 = x1 + $author$project$Scene2d$Dimensions$width(dimensions);
+		return $author$project$Scene2d$Shape$triangles(
 			_List_fromArray(
 				[
 					_Utils_Tuple3(
-					A2($author$project$Render$Point$point, x1, y1),
-					A2($author$project$Render$Point$point, x2, y1),
-					A2($author$project$Render$Point$point, x1, y2)),
+					A2($author$project$Scene2d$Point$point, x1, y1),
+					A2($author$project$Scene2d$Point$point, x2, y1),
+					A2($author$project$Scene2d$Point$point, x1, y2)),
 					_Utils_Tuple3(
-					A2($author$project$Render$Point$point, x1, y2),
-					A2($author$project$Render$Point$point, x2, y1),
-					A2($author$project$Render$Point$point, x2, y2))
+					A2($author$project$Scene2d$Point$point, x1, y2),
+					A2($author$project$Scene2d$Point$point, x2, y1),
+					A2($author$project$Scene2d$Point$point, x2, y2))
 				]));
 	});
-var $author$project$Render$Camera$Camera = function (a) {
+var $author$project$Scene2d$Camera$Camera = function (a) {
 	return {$: 'Camera', a: a};
 };
-var $author$project$Render$Camera$fromRecord = $author$project$Render$Camera$Camera;
+var $author$project$Scene2d$Camera$fromRecord = $author$project$Scene2d$Camera$Camera;
 var $elm$html$Html$Attributes$height = function (n) {
 	return A2(
 		_VirtualDom_attribute,
 		'height',
 		$elm$core$String$fromInt(n));
 };
-var $author$project$Render$Camera$dimensions = function (_v0) {
+var $author$project$Scene2d$Camera$dimensions = function (_v0) {
 	var internals = _v0.a;
 	return internals.dimensions;
 };
@@ -7147,12 +7147,12 @@ var $elm$core$Basics$negate = function (n) {
 	return -n;
 };
 var $author$project$Internal$Render$makeViewProjection = function (camera) {
-	var dimensions = $author$project$Render$Camera$dimensions(camera);
+	var dimensions = $author$project$Scene2d$Camera$dimensions(camera);
 	return A6(
 		$elm_explorations$linear_algebra$Math$Matrix4$makeOrtho,
 		0,
-		$author$project$Render$Dimensions$width(dimensions),
-		$author$project$Render$Dimensions$height(dimensions),
+		$author$project$Scene2d$Dimensions$width(dimensions),
+		$author$project$Scene2d$Dimensions$height(dimensions),
 		0,
 		-1,
 		-1);
@@ -7319,7 +7319,7 @@ var $elm$html$Html$Attributes$width = function (n) {
 		'width',
 		$elm$core$String$fromInt(n));
 };
-var $author$project$Render$toHtml = F2(
+var $author$project$Scene2d$toHtml = F2(
 	function (_v0, shapes) {
 		return A2(
 			$elm_explorations$webgl$WebGL$toHtml,
@@ -7335,35 +7335,35 @@ var $author$project$Render$toHtml = F2(
 				$elm$core$List$map,
 				$author$project$Internal$Render$shapeToEntity(
 					$author$project$Internal$Render$makeViewProjection(
-						$author$project$Render$Camera$fromRecord(
+						$author$project$Scene2d$Camera$fromRecord(
 							{
-								dimensions: A2($author$project$Render$Dimensions$dimensions, 400, 400),
-								position: A2($author$project$Render$Point$point, 0, 0)
+								dimensions: A2($author$project$Scene2d$Dimensions$dimensions, 400, 400),
+								position: A2($author$project$Scene2d$Point$point, 0, 0)
 							}))),
 				shapes));
 	});
-var $author$project$TopDown$view = function (model) {
+var $author$project$Rectangle$view = function (model) {
 	return A2(
-		$author$project$Render$toHtml,
+		$author$project$Scene2d$toHtml,
 		_List_Nil,
 		_List_fromArray(
 			[
 				A2(
-				$author$project$Render$Shape$rectangle,
-				A2($author$project$Render$Dimensions$dimensions, 50, 50),
-				A2($author$project$Render$Point$point, 0, 0))
+				$author$project$Scene2d$Shape$rectangle,
+				A2($author$project$Scene2d$Dimensions$dimensions, 50, 50),
+				A2($author$project$Scene2d$Point$point, 0, 0))
 			]));
 };
-var $author$project$TopDown$main = $elm$browser$Browser$sandbox(
+var $author$project$Rectangle$main = $elm$browser$Browser$sandbox(
 	{
 		init: {},
-		update: $author$project$TopDown$update,
-		view: $author$project$TopDown$view
+		update: $author$project$Rectangle$update,
+		view: $author$project$Rectangle$view
 	});
-_Platform_export({'TopDown':{'init':$author$project$TopDown$main(
+_Platform_export({'Rectangle':{'init':$author$project$Rectangle$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
 
-  var app = Elm.TopDown.init({ node: document.getElementById("elm") });
+  var app = Elm.Rectangle.init({ node: document.getElementById("elm") });
 }
 catch (e)
 {

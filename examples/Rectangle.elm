@@ -1,10 +1,10 @@
 module Rectangle exposing (main)
 
 import Browser
-import Render.Shape as Shape
-import Render
-import Render.Dimensions as Dimensions exposing (Dimensions, dimensions)
-import Render.Point as Point exposing (Point, point)
+import Scene2d.Shape as Shape
+import Scene2d
+import Scene2d.Dimensions as Dimensions exposing (Dimensions, dimensions)
+import Scene2d.Point as Point exposing (Point, point)
 import Html exposing (Html, button, div, text)
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
 
@@ -31,4 +31,4 @@ update _ =
 
 view : Model -> Html Msg
 view model =
-    Render.toHtml [] [Shape.rectangle (dimensions 50 50) (point 0 0)]
+    Scene2d.toHtml [] [Shape.rectangle (dimensions 50 50) (point 0 0)]
