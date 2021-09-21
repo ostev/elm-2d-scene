@@ -2,8 +2,8 @@ module Render.Dimensions exposing
     ( Dimensions
     , dimensions
     , fromRecord
-    , getHeight
-    , getWidth
+    , height
+    , width
     )
 
 {-| Represents the dimensions of things in 2D.
@@ -15,18 +15,18 @@ type Dimensions
 
 
 fromRecord : { width : Float, height : Float } -> Dimensions
-fromRecord { width, height } =
-    Dimensions width height
+fromRecord record =
+    Dimensions record.width record.height
 
 
-getWidth : Dimensions -> Float
-getWidth (Dimensions width _) =
-    width
+width : Dimensions -> Float
+width (Dimensions widthD _) =
+    widthD
 
 
-getHeight : Dimensions -> Float
-getHeight (Dimensions _ height) =
-    height
+height : Dimensions -> Float
+height (Dimensions _ heightD) =
+    heightD
 
 
 {-| Create [`Dimensions`](#Dimensions) from two

@@ -1,6 +1,8 @@
 module Render.Point exposing
     ( Point
+    , first
     , point
+    , second
     , toVec2
     )
 
@@ -22,23 +24,23 @@ point x y =
     Point <| vec2 x y
 
 
-{-| Extract the x component of a point.
+{-| Extract the first (`x`) component of a point.
 
-     getX (point 5 8) == 5
+     first (point 5 8) == 5
 
 -}
-getX : Point -> Float
-getX (Point vec) =
+first : Point -> Float
+first (Point vec) =
     Vec2.getX vec
 
 
-{-| Extract the x component of a point.
+{-| Extracts the second (`y`) component of a point.
 
-     getX (point 5 8) == 5
+     second (point 5 8) == 5
 
 -}
-getY : Point -> Float
-getY (Point vec) =
+second : Point -> Float
+second (Point vec) =
     Vec2.getY vec
 
 
