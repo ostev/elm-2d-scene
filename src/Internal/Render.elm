@@ -6,10 +6,10 @@ import Internal.Vertex as Vertex exposing (Vertex)
 import Math.Matrix4 as Mat4 exposing (Mat4)
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
 import Math.Vector3 exposing (vec3)
-import Scene2d.Camera as Camera exposing (Camera)
-import Scene2d.Dimensions as Dimensions exposing (Dimensions)
-import Scene2d.Point as Point exposing (Point)
-import Scene2d.Shape as Shape exposing (Shape)
+import Scene.Camera as Camera exposing (Camera)
+import Scene.Dimensions as Dimensions exposing (Dimensions)
+import Scene.Point as Point exposing (Point)
+import Scene.Shape as Shape exposing (Shape)
 import WebGL
 import WebGL.Texture
 

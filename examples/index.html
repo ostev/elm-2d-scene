@@ -7037,38 +7037,38 @@ var $elm$browser$Browser$sandbox = function (impl) {
 var $author$project$Rectangle$update = function (_v0) {
 	return $elm$core$Basics$identity;
 };
-var $author$project$Scene2d$Camera$Camera = function (a) {
+var $author$project$Scene$Camera$Camera = function (a) {
 	return {$: 'Camera', a: a};
 };
-var $author$project$Scene2d$Camera$fromRecord = $author$project$Scene2d$Camera$Camera;
-var $author$project$Scene2d$Dimensions$Dimensions = F2(
+var $author$project$Scene$Camera$fromRecord = $author$project$Scene$Camera$Camera;
+var $author$project$Scene$Dimensions$Dimensions = F2(
 	function (a, b) {
 		return {$: 'Dimensions', a: a, b: b};
 	});
-var $author$project$Scene2d$Dimensions$fromRecord = function (record) {
-	return A2($author$project$Scene2d$Dimensions$Dimensions, record.width, record.height);
+var $author$project$Scene$Dimensions$fromRecord = function (record) {
+	return A2($author$project$Scene$Dimensions$Dimensions, record.width, record.height);
 };
-var $author$project$Scene2d$Dimensions$fromWidthHeight = $author$project$Scene2d$Dimensions$Dimensions;
-var $author$project$Scene2d$Point$Point = function (a) {
+var $author$project$Scene$Dimensions$fromWidthHeight = $author$project$Scene$Dimensions$Dimensions;
+var $author$project$Scene$Point$Point = function (a) {
 	return {$: 'Point', a: a};
 };
 var $elm_explorations$linear_algebra$Math$Vector2$vec2 = _MJS_v2;
-var $author$project$Scene2d$Point$fromXY = F2(
+var $author$project$Scene$Point$fromXY = F2(
 	function (x, y) {
-		return $author$project$Scene2d$Point$Point(
+		return $author$project$Scene$Point$Point(
 			A2($elm_explorations$linear_algebra$Math$Vector2$vec2, x, y));
 	});
 var $elm_explorations$linear_algebra$Math$Vector2$getX = _MJS_v2getX;
-var $author$project$Scene2d$Point$first = function (_v0) {
+var $author$project$Scene$Point$first = function (_v0) {
 	var vec = _v0.a;
 	return $elm_explorations$linear_algebra$Math$Vector2$getX(vec);
 };
-var $author$project$Scene2d$Dimensions$height = function (_v0) {
+var $author$project$Scene$Dimensions$height = function (_v0) {
 	var heightD = _v0.b;
 	return heightD;
 };
 var $elm_explorations$linear_algebra$Math$Vector2$getY = _MJS_v2getY;
-var $author$project$Scene2d$Point$second = function (_v0) {
+var $author$project$Scene$Point$second = function (_v0) {
 	var vec = _v0.a;
 	return $elm_explorations$linear_algebra$Math$Vector2$getY(vec);
 };
@@ -7090,12 +7090,12 @@ var $author$project$Internal$Vertex$fromVec2 = function (pos) {
 		pos,
 		A2($elm_explorations$linear_algebra$Math$Vector2$vec2, 0, 0));
 };
-var $author$project$Scene2d$Point$toVec2 = function (_v0) {
+var $author$project$Scene$Point$toVec2 = function (_v0) {
 	var vec = _v0.a;
 	return vec;
 };
-var $author$project$Internal$Vertex$fromPoint = A2($elm$core$Basics$composeR, $author$project$Scene2d$Point$toVec2, $author$project$Internal$Vertex$fromVec2);
-var $author$project$Scene2d$Shape$tupleMapThree = F2(
+var $author$project$Internal$Vertex$fromPoint = A2($elm$core$Basics$composeR, $author$project$Scene$Point$toVec2, $author$project$Internal$Vertex$fromVec2);
+var $author$project$Scene$Shape$tupleMapThree = F2(
 	function (f, _v0) {
 		var x = _v0.a;
 		var y = _v0.b;
@@ -7105,39 +7105,39 @@ var $author$project$Scene2d$Shape$tupleMapThree = F2(
 			f(y),
 			f(z));
 	});
-var $author$project$Scene2d$Shape$triangles = function (positions) {
+var $author$project$Scene$Shape$triangles = function (positions) {
 	return $author$project$Internal$Shape$Triangles(
 		A2(
 			$elm$core$List$map,
-			$author$project$Scene2d$Shape$tupleMapThree($author$project$Internal$Vertex$fromPoint),
+			$author$project$Scene$Shape$tupleMapThree($author$project$Internal$Vertex$fromPoint),
 			positions));
 };
-var $author$project$Scene2d$Dimensions$width = function (_v0) {
+var $author$project$Scene$Dimensions$width = function (_v0) {
 	var widthD = _v0.a;
 	return widthD;
 };
-var $author$project$Scene2d$Shape$rectangle = F2(
+var $author$project$Scene$Shape$rectangle = F2(
 	function (dimensions, position) {
-		var y1 = $author$project$Scene2d$Point$second(position);
-		var y2 = y1 + $author$project$Scene2d$Dimensions$height(dimensions);
-		var x1 = $author$project$Scene2d$Point$first(position);
-		var x2 = x1 + $author$project$Scene2d$Dimensions$width(dimensions);
-		return $author$project$Scene2d$Shape$triangles(
+		var y1 = $author$project$Scene$Point$second(position);
+		var y2 = y1 + $author$project$Scene$Dimensions$height(dimensions);
+		var x1 = $author$project$Scene$Point$first(position);
+		var x2 = x1 + $author$project$Scene$Dimensions$width(dimensions);
+		return $author$project$Scene$Shape$triangles(
 			_List_fromArray(
 				[
 					_Utils_Tuple3(
-					A2($author$project$Scene2d$Point$fromXY, x1, y1),
-					A2($author$project$Scene2d$Point$fromXY, x2, y1),
-					A2($author$project$Scene2d$Point$fromXY, x1, y2)),
+					A2($author$project$Scene$Point$fromXY, x1, y1),
+					A2($author$project$Scene$Point$fromXY, x2, y1),
+					A2($author$project$Scene$Point$fromXY, x1, y2)),
 					_Utils_Tuple3(
-					A2($author$project$Scene2d$Point$fromXY, x1, y2),
-					A2($author$project$Scene2d$Point$fromXY, x2, y1),
-					A2($author$project$Scene2d$Point$fromXY, x2, y2))
+					A2($author$project$Scene$Point$fromXY, x1, y2),
+					A2($author$project$Scene$Point$fromXY, x2, y1),
+					A2($author$project$Scene$Point$fromXY, x2, y2))
 				]));
 	});
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
-var $author$project$Scene2d$Camera$dimensions = function (_v0) {
+var $author$project$Scene$Camera$dimensions = function (_v0) {
 	var internals = _v0.a;
 	return internals.dimensions;
 };
@@ -7149,20 +7149,20 @@ var $elm$html$Html$Attributes$height = function (n) {
 };
 var $elm_explorations$linear_algebra$Math$Matrix4$inverseOrthonormal = _MJS_m4x4inverseOrthonormal;
 var $elm_explorations$linear_algebra$Math$Matrix4$identity = _MJS_m4x4identity;
-var $author$project$Scene2d$Camera$position = function (_v0) {
+var $author$project$Scene$Camera$position = function (_v0) {
 	var internals = _v0.a;
 	return internals.position;
 };
 var $elm_explorations$linear_algebra$Math$Matrix4$translate = _MJS_m4x4translate;
 var $elm_explorations$linear_algebra$Math$Vector3$vec3 = _MJS_v3;
 var $author$project$Internal$Render$makeCamera = function (camera) {
-	var position = $author$project$Scene2d$Camera$position(camera);
+	var position = $author$project$Scene$Camera$position(camera);
 	return A2(
 		$elm_explorations$linear_algebra$Math$Matrix4$translate,
 		A3(
 			$elm_explorations$linear_algebra$Math$Vector3$vec3,
-			$author$project$Scene2d$Point$first(position),
-			$author$project$Scene2d$Point$second(position),
+			$author$project$Scene$Point$first(position),
+			$author$project$Scene$Point$second(position),
 			0),
 		$elm_explorations$linear_algebra$Math$Matrix4$identity);
 };
@@ -7174,15 +7174,15 @@ var $author$project$Internal$Render$makeProjection = function (dimensions) {
 	return A6(
 		$elm_explorations$linear_algebra$Math$Matrix4$makeOrtho,
 		0,
-		$author$project$Scene2d$Dimensions$width(dimensions),
-		$author$project$Scene2d$Dimensions$height(dimensions),
+		$author$project$Scene$Dimensions$width(dimensions),
+		$author$project$Scene$Dimensions$height(dimensions),
 		0,
 		-1,
 		-1);
 };
 var $elm_explorations$linear_algebra$Math$Matrix4$mul = _MJS_m4x4mul;
 var $author$project$Internal$Render$makeViewProjection = function (camera) {
-	var dimensions = $author$project$Scene2d$Camera$dimensions(camera);
+	var dimensions = $author$project$Scene$Camera$dimensions(camera);
 	return A2(
 		$elm_explorations$linear_algebra$Math$Matrix4$mul,
 		$author$project$Internal$Render$makeProjection(dimensions),
@@ -7350,7 +7350,7 @@ var $elm$html$Html$Attributes$width = function (n) {
 		'width',
 		$elm$core$String$fromInt(n));
 };
-var $author$project$Scene2d$toHtml = F3(
+var $author$project$Scene$toHtml = F3(
 	function (camera, htmlAttributes, shapes) {
 		return A2(
 			$elm_explorations$webgl$WebGL$toHtml,
@@ -7358,11 +7358,11 @@ var $author$project$Scene2d$toHtml = F3(
 				_List_fromArray(
 					[
 						$elm$html$Html$Attributes$width(
-						$author$project$Scene2d$Dimensions$width(
-							$author$project$Scene2d$Camera$dimensions(camera)) | 0),
+						$author$project$Scene$Dimensions$width(
+							$author$project$Scene$Camera$dimensions(camera)) | 0),
 						$elm$html$Html$Attributes$height(
-						$author$project$Scene2d$Dimensions$height(
-							$author$project$Scene2d$Camera$dimensions(camera)) | 0)
+						$author$project$Scene$Dimensions$height(
+							$author$project$Scene$Camera$dimensions(camera)) | 0)
 					]),
 				htmlAttributes),
 			A2(
@@ -7373,12 +7373,12 @@ var $author$project$Scene2d$toHtml = F3(
 	});
 var $author$project$Rectangle$view = function (model) {
 	return A3(
-		$author$project$Scene2d$toHtml,
-		$author$project$Scene2d$Camera$fromRecord(
+		$author$project$Scene$toHtml,
+		$author$project$Scene$Camera$fromRecord(
 			{
-				dimensions: $author$project$Scene2d$Dimensions$fromRecord(
+				dimensions: $author$project$Scene$Dimensions$fromRecord(
 					{height: 400, width: 400}),
-				position: A2($author$project$Scene2d$Point$fromXY, 0, 0)
+				position: A2($author$project$Scene$Point$fromXY, 0, 0)
 			}),
 		_List_fromArray(
 			[
@@ -7389,9 +7389,9 @@ var $author$project$Rectangle$view = function (model) {
 		_List_fromArray(
 			[
 				A2(
-				$author$project$Scene2d$Shape$rectangle,
-				A2($author$project$Scene2d$Dimensions$fromWidthHeight, 100, 100),
-				A2($author$project$Scene2d$Point$fromXY, 50, 50))
+				$author$project$Scene$Shape$rectangle,
+				A2($author$project$Scene$Dimensions$fromWidthHeight, 100, 100),
+				A2($author$project$Scene$Point$fromXY, 50, 50))
 			]));
 };
 var $author$project$Rectangle$main = $elm$browser$Browser$sandbox(

@@ -6,7 +6,7 @@ module Internal.Shape exposing
     )
 
 import Internal.Vertex as Vertex exposing (Vertex)
-import Scene2d.Texture as Texture exposing (Texture)
+import Scene.Texture as Texture exposing (Texture)
 import WebGL
 
 type Shape

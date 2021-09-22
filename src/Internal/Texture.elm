@@ -1,6 +1,6 @@
 module Internal.Texture exposing (Metadata(..), Texture(..), toWebGLTexture)
 
-import Scene2d.Dimensions exposing (Dimensions)
+import Scene.Dimensions exposing (Dimensions)
 import WebGL.Texture
 
 

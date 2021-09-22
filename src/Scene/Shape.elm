@@ -1,4 +1,4 @@
-module Scene2d.Shape exposing
+module Scene.Shape exposing
     ( Shape
     , image
     , rectangle
@@ -10,9 +10,9 @@ module Scene2d.Shape exposing
 import Internal.Shape
 import Internal.Vertex as Vertex exposing (Vertex)
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
-import Scene2d.Dimensions as Dimensions exposing (Dimensions)
-import Scene2d.Point as Point exposing (Point)
-import Scene2d.Texture exposing (Texture)
+import Scene.Dimensions as Dimensions exposing (Dimensions)
+import Scene.Point as Point exposing (Point)
+import Scene.Texture exposing (Texture)
 
 
 type alias Shape =

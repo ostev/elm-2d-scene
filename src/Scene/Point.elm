@@ -1,4 +1,4 @@
-module Scene2d.Point exposing
+module Scene.Point exposing
     ( Point
     , first
     , fromXY
