@@ -12,20 +12,19 @@ import WebGL
 
 
 toHtml : Camera -> List (Html.Attribute msg) -> List Shape -> Html msg
-toHtml camera _ shapes =
+toHtml camera htmlAttributes shapes =
     WebGL.toHtml
-        [ Html.Attributes.style "display" "block"
-        , Html.Attributes.style "margin" "1rem"
-        , Html.Attributes.style "border" "solid 1px"
-        , Html.Attributes.width
+        ([ Html.Attributes.width
             ((Dimensions.width <| Camera.dimensions camera)
                 |> truncate
             )
-        , Html.Attributes.height
+         , Html.Attributes.height
             ((Dimensions.height <| Camera.dimensions camera)
                 |> truncate
             )
-        ]
+         ]
+            ++ htmlAttributes
+        )
         (List.map
             (Internal.Render.shapeToEntity
                 (Internal.Render.makeViewProjection camera)

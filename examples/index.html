@@ -7135,6 +7135,8 @@ var $author$project$Scene2d$Shape$rectangle = F2(
 					A2($author$project$Scene2d$Point$fromXY, x2, y2))
 				]));
 	});
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $author$project$Scene2d$Camera$dimensions = function (_v0) {
 	var internals = _v0.a;
 	return internals.dimensions;
@@ -7320,8 +7322,6 @@ var $author$project$Internal$Render$shapeToEntity = F2(
 				{u_matrix: viewProjection});
 		}
 	});
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm_explorations$webgl$WebGL$Internal$Alpha = function (a) {
 	return {$: 'Alpha', a: a};
 };
@@ -7351,21 +7351,20 @@ var $elm$html$Html$Attributes$width = function (n) {
 		$elm$core$String$fromInt(n));
 };
 var $author$project$Scene2d$toHtml = F3(
-	function (camera, _v0, shapes) {
+	function (camera, htmlAttributes, shapes) {
 		return A2(
 			$elm_explorations$webgl$WebGL$toHtml,
-			_List_fromArray(
-				[
-					A2($elm$html$Html$Attributes$style, 'display', 'block'),
-					A2($elm$html$Html$Attributes$style, 'margin', '1rem'),
-					A2($elm$html$Html$Attributes$style, 'border', 'solid 1px'),
-					$elm$html$Html$Attributes$width(
-					$author$project$Scene2d$Dimensions$width(
-						$author$project$Scene2d$Camera$dimensions(camera)) | 0),
-					$elm$html$Html$Attributes$height(
-					$author$project$Scene2d$Dimensions$height(
-						$author$project$Scene2d$Camera$dimensions(camera)) | 0)
-				]),
+			_Utils_ap(
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$width(
+						$author$project$Scene2d$Dimensions$width(
+							$author$project$Scene2d$Camera$dimensions(camera)) | 0),
+						$elm$html$Html$Attributes$height(
+						$author$project$Scene2d$Dimensions$height(
+							$author$project$Scene2d$Camera$dimensions(camera)) | 0)
+					]),
+				htmlAttributes),
 			A2(
 				$elm$core$List$map,
 				$author$project$Internal$Render$shapeToEntity(
@@ -7381,7 +7380,12 @@ var $author$project$Rectangle$view = function (model) {
 					{height: 400, width: 400}),
 				position: A2($author$project$Scene2d$Point$fromXY, 0, 0)
 			}),
-		_List_Nil,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'display', 'block'),
+				A2($elm$html$Html$Attributes$style, 'margin', '1rem'),
+				A2($elm$html$Html$Attributes$style, 'border', 'solid 1px')
+			]),
 		_List_fromArray(
 			[
 				A2(

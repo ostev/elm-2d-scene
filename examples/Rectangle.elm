@@ -2,6 +2,7 @@ module Rectangle exposing (main)
 
 import Browser
 import Html exposing (Html, button, div, text)
+import Html.Attributes exposing (style)
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
 import Scene2d
 import Scene2d.Camera as Camera exposing (Camera)
@@ -43,7 +44,10 @@ view model =
             , position = Point.fromXY 0 0
             }
         )
-        []
+        [ style "display" "block"
+        , style "margin" "1rem"
+        , style "border" "solid 1px"
+        ]
         [ Shape.rectangle
             (Dimensions.fromWidthHeight 100 100)
             (Point.fromXY 50 50)
