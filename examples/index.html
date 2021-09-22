@@ -7037,16 +7037,23 @@ var $elm$browser$Browser$sandbox = function (impl) {
 var $author$project$Rectangle$update = function (_v0) {
 	return $elm$core$Basics$identity;
 };
+var $author$project$Scene2d$Camera$Camera = function (a) {
+	return {$: 'Camera', a: a};
+};
+var $author$project$Scene2d$Camera$fromRecord = $author$project$Scene2d$Camera$Camera;
 var $author$project$Scene2d$Dimensions$Dimensions = F2(
 	function (a, b) {
 		return {$: 'Dimensions', a: a, b: b};
 	});
-var $author$project$Scene2d$Dimensions$dimensions = $author$project$Scene2d$Dimensions$Dimensions;
+var $author$project$Scene2d$Dimensions$fromRecord = function (record) {
+	return A2($author$project$Scene2d$Dimensions$Dimensions, record.width, record.height);
+};
+var $author$project$Scene2d$Dimensions$fromWidthHeight = $author$project$Scene2d$Dimensions$Dimensions;
 var $author$project$Scene2d$Point$Point = function (a) {
 	return {$: 'Point', a: a};
 };
 var $elm_explorations$linear_algebra$Math$Vector2$vec2 = _MJS_v2;
-var $author$project$Scene2d$Point$point = F2(
+var $author$project$Scene2d$Point$fromXY = F2(
 	function (x, y) {
 		return $author$project$Scene2d$Point$Point(
 			A2($elm_explorations$linear_algebra$Math$Vector2$vec2, x, y));
@@ -7119,35 +7126,49 @@ var $author$project$Scene2d$Shape$rectangle = F2(
 			_List_fromArray(
 				[
 					_Utils_Tuple3(
-					A2($author$project$Scene2d$Point$point, x1, y1),
-					A2($author$project$Scene2d$Point$point, x2, y1),
-					A2($author$project$Scene2d$Point$point, x1, y2)),
+					A2($author$project$Scene2d$Point$fromXY, x1, y1),
+					A2($author$project$Scene2d$Point$fromXY, x2, y1),
+					A2($author$project$Scene2d$Point$fromXY, x1, y2)),
 					_Utils_Tuple3(
-					A2($author$project$Scene2d$Point$point, x1, y2),
-					A2($author$project$Scene2d$Point$point, x2, y1),
-					A2($author$project$Scene2d$Point$point, x2, y2))
+					A2($author$project$Scene2d$Point$fromXY, x1, y2),
+					A2($author$project$Scene2d$Point$fromXY, x2, y1),
+					A2($author$project$Scene2d$Point$fromXY, x2, y2))
 				]));
 	});
-var $author$project$Scene2d$Camera$Camera = function (a) {
-	return {$: 'Camera', a: a};
+var $author$project$Scene2d$Camera$dimensions = function (_v0) {
+	var internals = _v0.a;
+	return internals.dimensions;
 };
-var $author$project$Scene2d$Camera$fromRecord = $author$project$Scene2d$Camera$Camera;
 var $elm$html$Html$Attributes$height = function (n) {
 	return A2(
 		_VirtualDom_attribute,
 		'height',
 		$elm$core$String$fromInt(n));
 };
-var $author$project$Scene2d$Camera$dimensions = function (_v0) {
+var $elm_explorations$linear_algebra$Math$Matrix4$inverseOrthonormal = _MJS_m4x4inverseOrthonormal;
+var $elm_explorations$linear_algebra$Math$Matrix4$identity = _MJS_m4x4identity;
+var $author$project$Scene2d$Camera$position = function (_v0) {
 	var internals = _v0.a;
-	return internals.dimensions;
+	return internals.position;
+};
+var $elm_explorations$linear_algebra$Math$Matrix4$translate = _MJS_m4x4translate;
+var $elm_explorations$linear_algebra$Math$Vector3$vec3 = _MJS_v3;
+var $author$project$Internal$Render$makeCamera = function (camera) {
+	var position = $author$project$Scene2d$Camera$position(camera);
+	return A2(
+		$elm_explorations$linear_algebra$Math$Matrix4$translate,
+		A3(
+			$elm_explorations$linear_algebra$Math$Vector3$vec3,
+			$author$project$Scene2d$Point$first(position),
+			$author$project$Scene2d$Point$second(position),
+			0),
+		$elm_explorations$linear_algebra$Math$Matrix4$identity);
 };
 var $elm_explorations$linear_algebra$Math$Matrix4$makeOrtho = _MJS_m4x4makeOrtho;
 var $elm$core$Basics$negate = function (n) {
 	return -n;
 };
-var $author$project$Internal$Render$makeViewProjection = function (camera) {
-	var dimensions = $author$project$Scene2d$Camera$dimensions(camera);
+var $author$project$Internal$Render$makeProjection = function (dimensions) {
 	return A6(
 		$elm_explorations$linear_algebra$Math$Matrix4$makeOrtho,
 		0,
@@ -7156,6 +7177,15 @@ var $author$project$Internal$Render$makeViewProjection = function (camera) {
 		0,
 		-1,
 		-1);
+};
+var $elm_explorations$linear_algebra$Math$Matrix4$mul = _MJS_m4x4mul;
+var $author$project$Internal$Render$makeViewProjection = function (camera) {
+	var dimensions = $author$project$Scene2d$Camera$dimensions(camera);
+	return A2(
+		$elm_explorations$linear_algebra$Math$Matrix4$mul,
+		$author$project$Internal$Render$makeProjection(dimensions),
+		$elm_explorations$linear_algebra$Math$Matrix4$inverseOrthonormal(
+			$author$project$Internal$Render$makeCamera(camera)));
 };
 var $elm_explorations$webgl$WebGL$Internal$DepthTest = F4(
 	function (a, b, c, d) {
@@ -7313,45 +7343,51 @@ var $elm_explorations$webgl$WebGL$toHtml = $elm_explorations$webgl$WebGL$toHtmlW
 			$elm_explorations$webgl$WebGL$antialias,
 			$elm_explorations$webgl$WebGL$depth(1)
 		]));
+var $elm$core$Basics$truncate = _Basics_truncate;
 var $elm$html$Html$Attributes$width = function (n) {
 	return A2(
 		_VirtualDom_attribute,
 		'width',
 		$elm$core$String$fromInt(n));
 };
-var $author$project$Scene2d$toHtml = F2(
-	function (_v0, shapes) {
+var $author$project$Scene2d$toHtml = F3(
+	function (camera, _v0, shapes) {
 		return A2(
 			$elm_explorations$webgl$WebGL$toHtml,
 			_List_fromArray(
 				[
-					$elm$html$Html$Attributes$width(400),
-					$elm$html$Html$Attributes$height(400),
 					A2($elm$html$Html$Attributes$style, 'display', 'block'),
 					A2($elm$html$Html$Attributes$style, 'margin', '1rem'),
-					A2($elm$html$Html$Attributes$style, 'border', 'solid 1px')
+					A2($elm$html$Html$Attributes$style, 'border', 'solid 1px'),
+					$elm$html$Html$Attributes$width(
+					$author$project$Scene2d$Dimensions$width(
+						$author$project$Scene2d$Camera$dimensions(camera)) | 0),
+					$elm$html$Html$Attributes$height(
+					$author$project$Scene2d$Dimensions$height(
+						$author$project$Scene2d$Camera$dimensions(camera)) | 0)
 				]),
 			A2(
 				$elm$core$List$map,
 				$author$project$Internal$Render$shapeToEntity(
-					$author$project$Internal$Render$makeViewProjection(
-						$author$project$Scene2d$Camera$fromRecord(
-							{
-								dimensions: A2($author$project$Scene2d$Dimensions$dimensions, 400, 400),
-								position: A2($author$project$Scene2d$Point$point, 0, 0)
-							}))),
+					$author$project$Internal$Render$makeViewProjection(camera)),
 				shapes));
 	});
 var $author$project$Rectangle$view = function (model) {
-	return A2(
+	return A3(
 		$author$project$Scene2d$toHtml,
+		$author$project$Scene2d$Camera$fromRecord(
+			{
+				dimensions: $author$project$Scene2d$Dimensions$fromRecord(
+					{height: 400, width: 400}),
+				position: A2($author$project$Scene2d$Point$fromXY, 0, 0)
+			}),
 		_List_Nil,
 		_List_fromArray(
 			[
 				A2(
 				$author$project$Scene2d$Shape$rectangle,
-				A2($author$project$Scene2d$Dimensions$dimensions, 50, 50),
-				A2($author$project$Scene2d$Point$point, 0, 0))
+				A2($author$project$Scene2d$Dimensions$fromWidthHeight, 100, 100),
+				A2($author$project$Scene2d$Point$fromXY, 50, 50))
 			]));
 };
 var $author$project$Rectangle$main = $elm$browser$Browser$sandbox(

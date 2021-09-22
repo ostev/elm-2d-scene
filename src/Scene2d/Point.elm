@@ -1,7 +1,7 @@
 module Scene2d.Point exposing
     ( Point
     , first
-    , point
+    , fromXY
     , second
     , toVec2
     )
@@ -16,11 +16,11 @@ type Point
 {-| Construct a point from two
 [`Float`](https://package.elm-lang.org/packages/elm/core/latest/Basics#Float)s.
 
-    point 30 90 : Point
+    fromXY 30 90 : Point
 
 -}
-point : Float -> Float -> Point
-point x y =
+fromXY : Float -> Float -> Point
+fromXY x y =
     Point <| vec2 x y
 
 

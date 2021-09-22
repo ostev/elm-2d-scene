@@ -1,4 +1,4 @@
-module Internal.Render exposing (shapeToEntity, makeViewProjection)
+module Internal.Render exposing (makeViewProjection, shapeToEntity)
 
 import Internal.Shape
 import Internal.Texture
@@ -14,36 +14,40 @@ import WebGL
 import WebGL.Texture
 
 
+makeProjection : Dimensions -> Mat4
+makeProjection dimensions =
+    Mat4.makeOrtho
+        0
+        (Dimensions.width dimensions)
+        (Dimensions.height dimensions)
+        0
+        -1
+        -1
+
+
 makeViewProjection : Camera -> Mat4
 makeViewProjection camera =
     let
         dimensions =
             Camera.dimensions camera
     in
-    -- TODO: Get camera positioning working
-    -- Mat4.mul (makeCamera camera)
-        (Mat4.makeOrtho
-            0
-            (Dimensions.width dimensions)
-            (Dimensions.height dimensions)
-            0
-            -1
-            -1
-        )
+    Mat4.inverseOrthonormal (makeCamera camera)
+        |> Mat4.mul (makeProjection dimensions)
 
--- TODO: Get this working
--- makeCamera : Camera -> Mat4
--- makeCamera camera =
---     let
---         position =
---             Camera.position camera
---     in
---     Mat4.makeTranslate
---         (vec3
---             -(Point.first position)
---             -(Point.second position)
---             0
---         )
+
+makeCamera : Camera -> Mat4
+makeCamera camera =
+    let
+        position =
+            Camera.position camera
+    in
+    Mat4.identity
+        |> Mat4.translate
+            (vec3
+                (Point.first position)
+                (Point.second position)
+                0
+            )
 
 
 shapeToEntity : Mat4 -> Shape -> WebGL.Entity
@@ -92,6 +96,7 @@ vertexShader =
         } 
     |]
 
+
 texturedVertexShader :
     WebGL.Shader
         Vertex
@@ -110,6 +115,7 @@ texturedVertexShader =
             v_texcoord = a_texcoord;
         }
     |]
+
 
 fragmentShader : WebGL.Shader {} Uniforms {}
 fragmentShader =
@@ -140,6 +146,3 @@ texturedFragmentShader =
            gl_FragColor = texture2D(u_texture, v_texcoord);
         }
     |]
-
-
-

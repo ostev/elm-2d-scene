@@ -11,7 +11,7 @@ import Internal.Shape
 import Internal.Vertex as Vertex exposing (Vertex)
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
 import Scene2d.Dimensions as Dimensions exposing (Dimensions)
-import Scene2d.Point as Point exposing (Point, point)
+import Scene2d.Point as Point exposing (Point)
 import Scene2d.Texture exposing (Texture)
 
 
@@ -52,13 +52,13 @@ rectangle dimensions position =
             y1 + Dimensions.height dimensions
     in
     triangles
-        [ ( point x1 y1
-          , point x2 y1
-          , point x1 y2
+        [ ( Point.fromXY x1 y1
+          , Point.fromXY x2 y1
+          , Point.fromXY x1 y2
           )
-        , ( point x1 y2
-          , point x2 y1
-          , point x2 y2
+        , ( Point.fromXY x1 y2
+          , Point.fromXY x2 y1
+          , Point.fromXY x2 y2
           )
         ]
 

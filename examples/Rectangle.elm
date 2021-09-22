@@ -1,12 +1,14 @@
 module Rectangle exposing (main)
 
 import Browser
-import Scene2d.Shape as Shape
-import Scene2d
-import Scene2d.Dimensions as Dimensions exposing (Dimensions, dimensions)
-import Scene2d.Point as Point exposing (Point, point)
 import Html exposing (Html, button, div, text)
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
+import Scene2d
+import Scene2d.Camera as Camera exposing (Camera)
+import Scene2d.Dimensions as Dimensions exposing (Dimensions)
+import Scene2d.Point as Point exposing (Point)
+import Scene2d.Shape as Shape
+
 
 main =
     Browser.sandbox
@@ -31,4 +33,18 @@ update _ =
 
 view : Model -> Html Msg
 view model =
-    Scene2d.toHtml [] [Shape.rectangle (dimensions 50 50) (point 0 0)]
+    Scene2d.toHtml
+        (Camera.fromRecord
+            { dimensions =
+                Dimensions.fromRecord
+                    { width = 400
+                    , height = 400
+                    }
+            , position = Point.fromXY 0 0
+            }
+        )
+        []
+        [ Shape.rectangle
+            (Dimensions.fromWidthHeight 100 100)
+            (Point.fromXY 50 50)
+        ]

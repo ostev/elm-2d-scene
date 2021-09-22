@@ -1,7 +1,7 @@
 module Scene2d.Dimensions exposing
     ( Dimensions
-    , dimensions
     , fromRecord
+    , fromWidthHeight
     , height
     , width
     )
@@ -32,9 +32,9 @@ height (Dimensions _ heightD) =
 {-| Create [`Dimensions`](#Dimensions) from two
 [`Float`][Basics#Float]s.
 
-    dimensions 100 100 == fromRecord { width = 100, height = 100 }
+     fromWidthHeight 100 100 == fromRecord { width = 100, height = 100 }
 
 -}
-dimensions : Float -> Float -> Dimensions
-dimensions =
+fromWidthHeight : Float -> Float -> Dimensions
+fromWidthHeight =
     Dimensions
