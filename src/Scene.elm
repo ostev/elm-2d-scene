@@ -1,4 +1,4 @@
-module Scene exposing (toHtml)
+module Scene exposing (Scene, fromRecord, toHtml)
 
 import Html exposing (Html)
 import Html.Attributes
@@ -11,8 +11,20 @@ import Scene.Shape as Shape exposing (Shape)
 import WebGL
 
 
-toHtml : Camera -> List (Html.Attribute msg) -> List Shape -> Html msg
-toHtml camera htmlAttributes shapes =
+type Scene msg
+    = Scene
+        { camera : Camera
+        , content : List (Shape msg)
+        }
+
+
+fromRecord : { camera : Camera, content : List (Shape msg) } -> Scene msg
+fromRecord =
+    Scene
+
+
+toHtml : List (Html.Attribute msg) -> Scene msg -> Html msg
+toHtml htmlAttributes (Scene { camera, content }) =
     WebGL.toHtml
         ([ Html.Attributes.width
             ((Dimensions.width <| Camera.dimensions camera)
@@ -29,5 +41,5 @@ toHtml camera htmlAttributes shapes =
             (Internal.Render.shapeToEntity
                 (Internal.Render.makeViewProjection camera)
             )
-            shapes
+            content
         )

@@ -7037,6 +7037,10 @@ var $elm$browser$Browser$sandbox = function (impl) {
 var $author$project$Rectangle$update = function (_v0) {
 	return $elm$core$Basics$identity;
 };
+var $author$project$Scene$Scene = function (a) {
+	return {$: 'Scene', a: a};
+};
+var $author$project$Scene$fromRecord = $author$project$Scene$Scene;
 var $author$project$Scene$Camera$Camera = function (a) {
 	return {$: 'Camera', a: a};
 };
@@ -7117,11 +7121,11 @@ var $author$project$Scene$Dimensions$width = function (_v0) {
 	return widthD;
 };
 var $author$project$Scene$Shape$rectangle = F2(
-	function (dimensions, position) {
+	function (size, position) {
 		var y1 = $author$project$Scene$Point$second(position);
-		var y2 = y1 + $author$project$Scene$Dimensions$height(dimensions);
+		var y2 = y1 + $author$project$Scene$Dimensions$height(size);
 		var x1 = $author$project$Scene$Point$first(position);
-		var x2 = x1 + $author$project$Scene$Dimensions$width(dimensions);
+		var x2 = x1 + $author$project$Scene$Dimensions$width(size);
 		return $author$project$Scene$Shape$triangles(
 			_List_fromArray(
 				[
@@ -7350,8 +7354,10 @@ var $elm$html$Html$Attributes$width = function (n) {
 		'width',
 		$elm$core$String$fromInt(n));
 };
-var $author$project$Scene$toHtml = F3(
-	function (camera, htmlAttributes, shapes) {
+var $author$project$Scene$toHtml = F2(
+	function (htmlAttributes, _v0) {
+		var camera = _v0.a.camera;
+		var content = _v0.a.content;
 		return A2(
 			$elm_explorations$webgl$WebGL$toHtml,
 			_Utils_ap(
@@ -7369,30 +7375,33 @@ var $author$project$Scene$toHtml = F3(
 				$elm$core$List$map,
 				$author$project$Internal$Render$shapeToEntity(
 					$author$project$Internal$Render$makeViewProjection(camera)),
-				shapes));
+				content));
 	});
 var $author$project$Rectangle$view = function (model) {
-	return A3(
+	return A2(
 		$author$project$Scene$toHtml,
-		$author$project$Scene$Camera$fromRecord(
-			{
-				dimensions: $author$project$Scene$Dimensions$fromRecord(
-					{height: 400, width: 400}),
-				position: A2($author$project$Scene$Point$fromXY, 0, 0)
-			}),
 		_List_fromArray(
 			[
 				A2($elm$html$Html$Attributes$style, 'display', 'block'),
 				A2($elm$html$Html$Attributes$style, 'margin', '1rem'),
 				A2($elm$html$Html$Attributes$style, 'border', 'solid 1px')
 			]),
-		_List_fromArray(
-			[
-				A2(
-				$author$project$Scene$Shape$rectangle,
-				A2($author$project$Scene$Dimensions$fromWidthHeight, 100, 100),
-				A2($author$project$Scene$Point$fromXY, 50, 50))
-			]));
+		$author$project$Scene$fromRecord(
+			{
+				camera: $author$project$Scene$Camera$fromRecord(
+					{
+						dimensions: $author$project$Scene$Dimensions$fromRecord(
+							{height: 400, width: 400}),
+						position: A2($author$project$Scene$Point$fromXY, 0, 0)
+					}),
+				content: _List_fromArray(
+					[
+						A2(
+						$author$project$Scene$Shape$rectangle,
+						A2($author$project$Scene$Dimensions$fromWidthHeight, 100, 100),
+						A2($author$project$Scene$Point$fromXY, 50, 50))
+					])
+			}));
 };
 var $author$project$Rectangle$main = $elm$browser$Browser$sandbox(
 	{

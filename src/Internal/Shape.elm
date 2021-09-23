@@ -1,21 +1,28 @@
 module Internal.Shape exposing
     ( Shape(..)
+    , toMesh
     , toTexture
     , toTriangles
-    , toMesh
     )
 
 import Internal.Vertex as Vertex exposing (Vertex)
+import Scene.Dimensions as Dimensions exposing (Dimensions)
 import Scene.Texture as Texture exposing (Texture)
 import WebGL
 
-type Shape
-    = Triangles (List ( Vertex, Vertex, Vertex ))
-    | Textured Texture Shape
 
-toMesh : Shape -> WebGL.Mesh Vertex
-toMesh = toTriangles >> WebGL.triangles
-                 
+type Shape msg
+    = Triangles (List ( Vertex, Vertex, Vertex ))
+    | Textured Texture (Shape msg)
+
+
+
+
+
+toMesh : Shape msg -> WebGL.Mesh Vertex
+toMesh =
+    toTriangles >> WebGL.triangles
+
 
 {-| Extracts a [`Shape`'s](#Shape) texture,
 if it has one. If it doesn't, [`Nothing`](Maybe#Nothing).
@@ -25,7 +32,7 @@ if it has one. If it doesn't, [`Nothing`](Maybe#Nothing).
     toTexture rectangle
 
 -}
-toTexture : Shape -> Maybe Texture
+toTexture : Shape msg -> Maybe Texture
 toTexture shape =
     case shape of
         Textured texture _ ->
@@ -35,7 +42,7 @@ toTexture shape =
             Nothing
 
 
-toTriangles : Shape -> List ( Vertex, Vertex, Vertex )
+toTriangles : Shape msg -> List ( Vertex, Vertex, Vertex )
 toTriangles shape =
     case shape of
         Triangles triangles ->

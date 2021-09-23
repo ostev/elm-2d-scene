@@ -35,20 +35,24 @@ update _ =
 view : Model -> Html Msg
 view model =
     Scene.toHtml
-        (Camera.fromRecord
-            { dimensions =
-                Dimensions.fromRecord
-                    { width = 400
-                    , height = 400
-                    }
-            , position = Point.fromXY 0 0
-            }
-        )
         [ style "display" "block"
         , style "margin" "1rem"
         , style "border" "solid 1px"
         ]
-        [ Shape.rectangle
-            (Dimensions.fromWidthHeight 100 100)
-            (Point.fromXY 50 50)
-        ]
+        (Scene.fromRecord
+            { camera =
+                Camera.fromRecord
+                    { dimensions =
+                        Dimensions.fromRecord
+                            { width = 400
+                            , height = 400
+                            }
+                    , position = Point.fromXY 0 0
+                    }
+            , content =
+                [ Shape.rectangle
+                    (Dimensions.fromWidthHeight 100 100)
+                    (Point.fromXY 50 50)
+                ]
+            }
+        )

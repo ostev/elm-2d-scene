@@ -50,7 +50,7 @@ makeCamera camera =
             )
 
 
-shapeToEntity : Mat4 -> Shape -> WebGL.Entity
+shapeToEntity : Mat4 -> Shape msg -> WebGL.Entity
 shapeToEntity viewProjection shape =
     let
         mesh =
