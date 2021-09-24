@@ -1,8 +1,9 @@
 module Scene.Texture exposing (Metadata, Texture, metadata)
 
+import Internal.Texture
 import Scene.Dimensions exposing (Dimensions)
 import WebGL.Texture
-import Internal.Texture
+
 
 type alias Location =
     String
@@ -12,13 +13,15 @@ type alias Location =
 This can be created with [`metadata`](#metadata)
 and is used to [`load`](#load) [`Texture`s](#Texture)
 -}
-type alias Metadata = Internal.Texture.Metadata
+type alias Metadata =
+    Internal.Texture.Metadata
 
 
 {-| Represents a fully loaded texture. You can
 create one with [`load`](#load).
 -}
-type alias Texture = Internal.Texture.Texture
+type alias Texture =
+    Internal.Texture.Texture
 
 
 {-| Creates a `Texture` from a URL (`Location`) and

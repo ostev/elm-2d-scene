@@ -15,5 +15,7 @@ type Metadata
 type Texture
     = Texture Metadata WebGL.Texture.Texture
 
+
 toWebGLTexture : Texture -> WebGL.Texture.Texture
-toWebGLTexture (Texture _ texture) = texture
+toWebGLTexture (Texture _ texture) =
+    texture

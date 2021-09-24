@@ -16,9 +16,6 @@ type Shape msg
     | Textured Texture (Shape msg)
 
 
-
-
-
 toMesh : Shape msg -> WebGL.Mesh Vertex
 toMesh =
     toTriangles >> WebGL.triangles
