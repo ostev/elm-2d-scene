@@ -1,24 +1,29 @@
 module Internal.Vertex exposing
-    ( Vertex
+    ( Textured
+    , Vertex
     , fromPoint
     , fromVec2
+    , Untextured
     )
 
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
 import Scene.Point as Point exposing (Point)
 
 
-type alias Vertex =
-    { a_position : Vec2
-    , a_texcoord : Vec2
-    }
+type alias Vertex a =
+    { a | a_position : Vec2 }
+
+type alias Untextured = Vertex {}
+
+type alias Textured =
+    Vertex { a_texcoord : Vec2 }
 
 
-fromVec2 : Vec2 -> Vertex
-fromVec2 pos =
-    Vertex pos <| vec2 0 0
+fromVec2 : Vec2 -> Vertex {}
+fromVec2 vec =
+    { a_position = vec }
 
 
-fromPoint : Point -> Vertex
-fromPoint =
-    Point.toVec2 >> fromVec2
+fromPoint : Point -> Vertex {}
+fromPoint point=
+    { a_position = Point.toVec2 point}

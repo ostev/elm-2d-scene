@@ -7071,50 +7071,40 @@ var $author$project$Scene$Dimensions$height = function (_v0) {
 	var heightD = _v0.b;
 	return heightD;
 };
-var $elm_explorations$linear_algebra$Math$Vector2$getY = _MJS_v2getY;
-var $author$project$Scene$Point$second = function (_v0) {
-	var vec = _v0.a;
-	return $elm_explorations$linear_algebra$Math$Vector2$getY(vec);
-};
+var $author$project$Internal$Shape$Shape = F2(
+	function (a, b) {
+		return {$: 'Shape', a: a, b: b};
+	});
 var $author$project$Internal$Shape$Triangles = function (a) {
 	return {$: 'Triangles', a: a};
 };
+var $avh4$elm_color$Color$RgbaSpace = F4(
+	function (a, b, c, d) {
+		return {$: 'RgbaSpace', a: a, b: b, c: c, d: d};
+	});
+var $avh4$elm_color$Color$black = A4($avh4$elm_color$Color$RgbaSpace, 0 / 255, 0 / 255, 0 / 255, 1.0);
 var $elm$core$Basics$composeR = F3(
 	function (f, g, x) {
 		return g(
 			f(x));
 	});
-var $author$project$Internal$Vertex$Vertex = F2(
-	function (a_position, a_texcoord) {
-		return {a_position: a_position, a_texcoord: a_texcoord};
+var $author$project$Scene$Shape$triangles = A2(
+	$elm$core$Basics$composeR,
+	$author$project$Internal$Shape$Triangles,
+	$author$project$Internal$Shape$Shape($avh4$elm_color$Color$black));
+var $author$project$Scene$Shape$quad = F4(
+	function (topLeft, topRight, bottomLeft, bottomRight) {
+		return $author$project$Scene$Shape$triangles(
+			_List_fromArray(
+				[
+					_Utils_Tuple3(topLeft, bottomLeft, topRight),
+					_Utils_Tuple3(bottomLeft, topRight, bottomRight)
+				]));
 	});
-var $author$project$Internal$Vertex$fromVec2 = function (pos) {
-	return A2(
-		$author$project$Internal$Vertex$Vertex,
-		pos,
-		A2($elm_explorations$linear_algebra$Math$Vector2$vec2, 0, 0));
-};
-var $author$project$Scene$Point$toVec2 = function (_v0) {
+var $elm_explorations$linear_algebra$Math$Vector2$getY = _MJS_v2getY;
+var $author$project$Scene$Point$second = function (_v0) {
 	var vec = _v0.a;
-	return vec;
-};
-var $author$project$Internal$Vertex$fromPoint = A2($elm$core$Basics$composeR, $author$project$Scene$Point$toVec2, $author$project$Internal$Vertex$fromVec2);
-var $author$project$Scene$Shape$tupleMapThree = F2(
-	function (f, _v0) {
-		var x = _v0.a;
-		var y = _v0.b;
-		var z = _v0.c;
-		return _Utils_Tuple3(
-			f(x),
-			f(y),
-			f(z));
-	});
-var $author$project$Scene$Shape$triangles = function (positions) {
-	return $author$project$Internal$Shape$Triangles(
-		A2(
-			$elm$core$List$map,
-			$author$project$Scene$Shape$tupleMapThree($author$project$Internal$Vertex$fromPoint),
-			positions));
+	return $elm_explorations$linear_algebra$Math$Vector2$getY(vec);
 };
 var $author$project$Scene$Dimensions$width = function (_v0) {
 	var widthD = _v0.a;
@@ -7126,18 +7116,12 @@ var $author$project$Scene$Shape$rectangle = F2(
 		var y2 = y1 + $author$project$Scene$Dimensions$height(size);
 		var x1 = $author$project$Scene$Point$first(position);
 		var x2 = x1 + $author$project$Scene$Dimensions$width(size);
-		return $author$project$Scene$Shape$triangles(
-			_List_fromArray(
-				[
-					_Utils_Tuple3(
-					A2($author$project$Scene$Point$fromXY, x1, y1),
-					A2($author$project$Scene$Point$fromXY, x2, y1),
-					A2($author$project$Scene$Point$fromXY, x1, y2)),
-					_Utils_Tuple3(
-					A2($author$project$Scene$Point$fromXY, x1, y2),
-					A2($author$project$Scene$Point$fromXY, x2, y1),
-					A2($author$project$Scene$Point$fromXY, x2, y2))
-				]));
+		return A4(
+			$author$project$Scene$Shape$quad,
+			A2($author$project$Scene$Point$fromXY, x1, y1),
+			A2($author$project$Scene$Point$fromXY, x2, y1),
+			A2($author$project$Scene$Point$fromXY, x1, y2),
+			A2($author$project$Scene$Point$fromXY, x2, y2));
 	});
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
@@ -7193,18 +7177,26 @@ var $author$project$Internal$Render$makeViewProjection = function (camera) {
 		$elm_explorations$linear_algebra$Math$Matrix4$inverseOrthonormal(
 			$author$project$Internal$Render$makeCamera(camera)));
 };
-var $elm_explorations$webgl$WebGL$Internal$DepthTest = F4(
-	function (a, b, c, d) {
-		return {$: 'DepthTest', a: a, b: b, c: c, d: d};
+var $elm$core$Debug$todo = _Debug_todo;
+var $author$project$Internal$Render$shapeToEntity = F2(
+	function (viewProjection, shape) {
+		return _Debug_todo(
+			'Internal.Render',
+			{
+				start: {line: 75, column: 5},
+				end: {line: 75, column: 15}
+			})('Not yet implemented');
 	});
-var $elm_explorations$webgl$WebGL$Settings$DepthTest$less = function (_v0) {
-	var write = _v0.write;
-	var near = _v0.near;
-	var far = _v0.far;
-	return A4($elm_explorations$webgl$WebGL$Internal$DepthTest, 513, write, near, far);
+var $elm_explorations$webgl$WebGL$Internal$Alpha = function (a) {
+	return {$: 'Alpha', a: a};
 };
-var $elm_explorations$webgl$WebGL$Settings$DepthTest$default = $elm_explorations$webgl$WebGL$Settings$DepthTest$less(
-	{far: 1, near: 0, write: true});
+var $elm_explorations$webgl$WebGL$alpha = $elm_explorations$webgl$WebGL$Internal$Alpha;
+var $elm_explorations$webgl$WebGL$Internal$Antialias = {$: 'Antialias'};
+var $elm_explorations$webgl$WebGL$antialias = $elm_explorations$webgl$WebGL$Internal$Antialias;
+var $elm_explorations$webgl$WebGL$Internal$Depth = function (a) {
+	return {$: 'Depth', a: a};
+};
+var $elm_explorations$webgl$WebGL$depth = $elm_explorations$webgl$WebGL$Internal$Depth;
 var $elm_explorations$webgl$WebGL$Internal$enableOption = F2(
 	function (ctx, option) {
 		switch (option.$) {
@@ -7245,97 +7237,6 @@ var $elm_explorations$webgl$WebGL$Internal$enableSetting = F2(
 				return _WebGL_enableSampleAlphaToCoverage(cache);
 		}
 	});
-var $elm_explorations$webgl$WebGL$entityWith = _WebGL_entity;
-var $elm_explorations$webgl$WebGL$entity = $elm_explorations$webgl$WebGL$entityWith(
-	_List_fromArray(
-		[$elm_explorations$webgl$WebGL$Settings$DepthTest$default]));
-var $author$project$Internal$Render$fragmentShader = {
-	src: '\n        precision mediump float;\n        // uniform vec4 u_color;\n        void main() {\n            gl_FragColor = vec4(0, 0, 0, 1);\n        }\n    ',
-	attributes: {},
-	uniforms: {}
-};
-var $author$project$Internal$Render$texturedFragmentShader = {
-	src: '\n        precision mediump float;\n \n        varying vec2 v_texcoord;\n        \n \n        uniform sampler2D u_texture;\n         \n        void main() {\n           gl_FragColor = texture2D(u_texture, v_texcoord);\n        }\n    ',
-	attributes: {},
-	uniforms: {u_texture: 'u_texture'}
-};
-var $author$project$Internal$Render$texturedVertexShader = {
-	src: '\n        attribute vec2 a_position;\n        attribute vec2 a_texcoord;\n        \n        uniform mat4 u_matrix;\n        varying vec2 v_texcoord;\n        void main() {\n            // Multiply the position by the matrix.\n            gl_Position = vec4((u_matrix * vec4(a_position, 1, 1)).xy, 0, 1);\n            v_texcoord = a_texcoord;\n        }\n    ',
-	attributes: {a_position: 'a_position', a_texcoord: 'a_texcoord'},
-	uniforms: {u_matrix: 'u_matrix'}
-};
-var $author$project$Internal$Shape$toTriangles = function (shape) {
-	toTriangles:
-	while (true) {
-		if (shape.$ === 'Triangles') {
-			var triangles = shape.a;
-			return triangles;
-		} else {
-			var shape2 = shape.b;
-			var $temp$shape = shape2;
-			shape = $temp$shape;
-			continue toTriangles;
-		}
-	}
-};
-var $elm_explorations$webgl$WebGL$Mesh3 = F2(
-	function (a, b) {
-		return {$: 'Mesh3', a: a, b: b};
-	});
-var $elm_explorations$webgl$WebGL$triangles = $elm_explorations$webgl$WebGL$Mesh3(
-	{elemSize: 3, indexSize: 0, mode: 4});
-var $author$project$Internal$Shape$toMesh = A2($elm$core$Basics$composeR, $author$project$Internal$Shape$toTriangles, $elm_explorations$webgl$WebGL$triangles);
-var $author$project$Internal$Shape$toTexture = function (shape) {
-	if (shape.$ === 'Textured') {
-		var texture = shape.a;
-		return $elm$core$Maybe$Just(texture);
-	} else {
-		return $elm$core$Maybe$Nothing;
-	}
-};
-var $author$project$Internal$Texture$toWebGLTexture = function (_v0) {
-	var texture = _v0.b;
-	return texture;
-};
-var $author$project$Internal$Render$vertexShader = {
-	src: '\n        attribute vec2 a_position;\n        uniform mat4 u_matrix;\n        void main() {\n          // Multiply the position by the matrix.\n          gl_Position = vec4((u_matrix * vec4(a_position, 1, 1)).xy, 0, 1);\n        } \n    ',
-	attributes: {a_position: 'a_position'},
-	uniforms: {u_matrix: 'u_matrix'}
-};
-var $author$project$Internal$Render$shapeToEntity = F2(
-	function (viewProjection, shape) {
-		var mesh = $author$project$Internal$Shape$toMesh(shape);
-		var _v0 = $author$project$Internal$Shape$toTexture(shape);
-		if (_v0.$ === 'Just') {
-			var texture = _v0.a;
-			return A4(
-				$elm_explorations$webgl$WebGL$entity,
-				$author$project$Internal$Render$texturedVertexShader,
-				$author$project$Internal$Render$texturedFragmentShader,
-				mesh,
-				{
-					u_matrix: viewProjection,
-					u_texture: $author$project$Internal$Texture$toWebGLTexture(texture)
-				});
-		} else {
-			return A4(
-				$elm_explorations$webgl$WebGL$entity,
-				$author$project$Internal$Render$vertexShader,
-				$author$project$Internal$Render$fragmentShader,
-				mesh,
-				{u_matrix: viewProjection});
-		}
-	});
-var $elm_explorations$webgl$WebGL$Internal$Alpha = function (a) {
-	return {$: 'Alpha', a: a};
-};
-var $elm_explorations$webgl$WebGL$alpha = $elm_explorations$webgl$WebGL$Internal$Alpha;
-var $elm_explorations$webgl$WebGL$Internal$Antialias = {$: 'Antialias'};
-var $elm_explorations$webgl$WebGL$antialias = $elm_explorations$webgl$WebGL$Internal$Antialias;
-var $elm_explorations$webgl$WebGL$Internal$Depth = function (a) {
-	return {$: 'Depth', a: a};
-};
-var $elm_explorations$webgl$WebGL$depth = $elm_explorations$webgl$WebGL$Internal$Depth;
 var $elm_explorations$webgl$WebGL$toHtmlWith = F3(
 	function (options, attributes, entities) {
 		return A3(_WebGL_toHtml, options, attributes, entities);

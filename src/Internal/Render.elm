@@ -52,27 +52,27 @@ makeCamera camera =
 
 shapeToEntity : Mat4 -> Shape msg -> WebGL.Entity
 shapeToEntity viewProjection shape =
-    let
-        mesh =
-            Internal.Shape.toMesh shape
-    in
-    case Internal.Shape.toTexture shape of
-        Just texture ->
-            WebGL.entity
-                texturedVertexShader
-                texturedFragmentShader
-                mesh
-                { u_matrix = viewProjection
-                , u_texture =
-                    Internal.Texture.toWebGLTexture
-                        texture
-                }
-
-        Nothing ->
-            WebGL.entity vertexShader
-                fragmentShader
-                mesh
-                { u_matrix = viewProjection }
+    -- let
+    --     mesh =
+    --         Internal.Shape.toMesh shape
+    -- in
+    -- case Internal.Shape.toTexture shape of
+    --     Just texture ->
+    --         WebGL.entity
+    --             texturedVertexShader
+    --             texturedFragmentShader
+    --             mesh
+    --             { u_matrix = viewProjection
+    --             , u_texture =
+    --                 Internal.Texture.toWebGLTexture
+    --                     texture
+    --             }
+    --     Nothing ->
+    --         WebGL.entity vertexShader
+    --             fragmentShader
+    --             mesh
+    --             { u_matrix = viewProjection }
+    Debug.todo "Not yet implemented"
 
 
 type alias Uniforms =
@@ -85,7 +85,7 @@ type alias TexturedUniforms =
     }
 
 
-vertexShader : WebGL.Shader Vertex Uniforms {}
+vertexShader : WebGL.Shader Vertex.Untextured Uniforms {}
 vertexShader =
     [glsl|
         attribute vec2 a_position;
@@ -99,7 +99,7 @@ vertexShader =
 
 texturedVertexShader :
     WebGL.Shader
-        Vertex
+        Vertex.Textured
         TexturedUniforms
         { v_texcoord : Vec2 }
 texturedVertexShader =

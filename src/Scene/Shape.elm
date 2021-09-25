@@ -1,11 +1,10 @@
 module Scene.Shape exposing
-    ( Shape
-    , dimensions
+    ( Attribute
+    , Shape
     , image
+    , quad
     , rectangle
-    , textured
     , triangle
-    , triangles
     )
 
 import Color exposing (Color)
@@ -17,18 +16,16 @@ import Scene.Point as Point exposing (Point)
 import Scene.Texture exposing (Texture)
 
 
-type Shape msg
-    = Polygon
-        { sides : Int
-        , position : Point
-        }
-    | Colored (Shape msg) Color
-    | Textured (Shape msg) Texture
+type alias Kind =
+    Internal.Shape.Kind
 
 
-dimensions : Shape msg -> Dimensions
-dimensions =
-    Debug.todo ""
+type alias Attribute msg =
+    Internal.Shape.Attribute msg
+
+
+type alias Shape msg =
+    Internal.Shape.Shape msg
 
 
 tupleMapThree : (a -> b) -> ( a, a, a ) -> ( b, b, b )
@@ -37,15 +34,28 @@ tupleMapThree f ( x, y, z ) =
 
 
 triangles : List ( Point, Point, Point ) -> Shape msg
-triangles positions =
-    positions
-        |> List.map (tupleMapThree Vertex.fromPoint)
-        |> Internal.Shape.Triangles
+triangles =
+    Internal.Shape.Triangles
+        >> Internal.Shape.Shape Color.black
 
 
 triangle : Point -> Point -> Point -> Shape msg
 triangle a b c =
     triangles [ ( a, b, c ) ]
+
+
+quad : Point -> Point -> Point -> Point -> Shape msg
+quad topLeft topRight bottomLeft bottomRight=
+    triangles
+        [ ( topLeft
+          , bottomLeft
+          , topRight
+          )
+        , ( bottomLeft
+          , topRight 
+          , bottomRight
+          )
+        ]
 
 
 rectangle : Dimensions -> Point -> Shape msg
@@ -63,23 +73,13 @@ rectangle size position =
         y2 =
             y1 + Dimensions.height size
     in
-    triangles
-        [ ( Point.fromXY x1 y1
-          , Point.fromXY x2 y1
-          , Point.fromXY x1 y2
-          )
-        , ( Point.fromXY x1 y2
-          , Point.fromXY x2 y1
-          , Point.fromXY x2 y2
-          )
-        ]
+    quad
+        (Point.fromXY x1 y1)
+        (Point.fromXY x2 y1)
+        (Point.fromXY x1 y2)
+        (Point.fromXY x2 y2)
 
 
-image : Texture -> Point -> Shape msg
+image : List (Attribute msg) -> Texture -> Point -> Shape msg
 image texture position =
     Debug.todo "`image` not yet implemented."
-
-
-textured : Texture -> Shape msg -> Shape msg
-textured =
-    Debug.todo "Textures not implemented yet"
