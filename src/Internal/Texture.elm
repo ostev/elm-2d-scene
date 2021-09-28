@@ -9,7 +9,7 @@ type alias Location =
 
 
 type Metadata
-    = Metadata Location Dimensions
+    = Metadata Dimensions Location
 
 
 type Texture

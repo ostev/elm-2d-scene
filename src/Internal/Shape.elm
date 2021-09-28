@@ -1,6 +1,5 @@
 module Internal.Shape exposing
-    ( Attribute(..)
-    , Kind(..)
+    ( Kind(..)
     , Shape(..)
     )
 
@@ -14,16 +13,12 @@ import WebGL
 
 type Kind
     = Triangles (List ( Point, Point, Point ))
-    | Circle Float
-
-
-type Attribute msg
-    = Attribute (Shape msg -> Shape msg)
+    | Circle Float Point
 
 
 type Shape msg
     = Shape Color Kind
-    | Image Texture
+    | Image Texture Point
 
 
 

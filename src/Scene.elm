@@ -3,11 +3,9 @@ module Scene exposing (Scene, fromRecord, toHtml)
 import Html exposing (Html)
 import Html.Attributes
 import Internal.Render
-import Math.Matrix4 as Mat4 exposing (Mat4)
 import Scene.Camera as Camera exposing (Camera)
-import Scene.Dimensions as Dimensions exposing (Dimensions)
-import Scene.Point as Point exposing (Point)
-import Scene.Shape as Shape exposing (Shape)
+import Scene.Dimensions as Dimensions
+import Scene.Shape exposing (Shape)
 import WebGL
 
 

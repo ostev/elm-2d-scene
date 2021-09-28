@@ -10,8 +10,14 @@ import Scene.Camera as Camera exposing (Camera)
 import Scene.Dimensions as Dimensions exposing (Dimensions)
 import Scene.Point as Point exposing (Point)
 import Scene.Shape as Shape exposing (Shape)
+import Scene.Texture as Texture
 import WebGL
 import WebGL.Texture
+
+
+tupleMapThree : (a -> b) -> ( a, a, a ) -> ( b, b, b )
+tupleMapThree f ( x, y, z ) =
+    ( f x, f y, f z )
 
 
 makeProjection : Dimensions -> Mat4
@@ -50,6 +56,11 @@ makeCamera camera =
             )
 
 
+shapeToIdEntity : Mat4 -> Shape msg -> WebGL.Entity
+shapeToIdEntity viewProjection shape =
+    Debug.todo ""
+
+
 shapeToEntity : Mat4 -> Shape msg -> WebGL.Entity
 shapeToEntity viewProjection shape =
     -- let
@@ -72,7 +83,57 @@ shapeToEntity viewProjection shape =
     --             fragmentShader
     --             mesh
     --             { u_matrix = viewProjection }
-    Debug.todo "Not yet implemented"
+    case shape of
+        Internal.Shape.Image texture position ->
+            WebGL.entity
+                texturedVertexShader
+                texturedFragmentShader
+                (let
+                    size =
+                        Texture.dimensions texture
+
+                    x1 =
+                        Point.first position
+
+                    x2 =
+                        x1 + Dimensions.width size
+
+                    y1 =
+                        Point.second position
+
+                    y2 =
+                        y1 + Dimensions.height size
+                 in
+                 WebGL.triangles
+                    [ ( { a_position = vec2 x1 y1, a_texcoord = vec2 0 1 }
+                      , { a_position = vec2 x2 y1, a_texcoord = vec2 1 1 }
+                      , { a_position = vec2 x1 y2, a_texcoord = vec2 0 0 }
+                      )
+                    , ( { a_position = vec2 x1 y2, a_texcoord = vec2 0 0 }
+                      , { a_position = vec2 x2 y1, a_texcoord = vec2 1 1 }
+                      , { a_position = vec2 x2 y2, a_texcoord = vec2 1 0 }
+                      )
+                    ]
+                )
+                { u_matrix = viewProjection
+                , u_texture = Internal.Texture.toWebGLTexture texture
+                }
+
+        Internal.Shape.Shape color kind ->
+            case kind of
+                Internal.Shape.Triangles triangles ->
+                    WebGL.entity
+                        vertexShader
+                        fragmentShader
+                        (List.map
+                            (tupleMapThree Vertex.fromPoint)
+                            triangles
+                            |> WebGL.triangles
+                        )
+                        { u_matrix = viewProjection }
+
+                Internal.Shape.Circle _ _ ->
+                    Debug.todo "Circles not yet implemented"
 
 
 type alias Uniforms =

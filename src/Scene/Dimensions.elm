@@ -3,6 +3,7 @@ module Scene.Dimensions exposing
     , fromRecord
     , fromWidthHeight
     , height
+    , toTuple
     , width
     )
 
@@ -14,17 +15,17 @@ type Dimensions
     = Dimensions Float Float
 
 
-fromRecord : { width : Float, height : Float } -> Dimensions
+fromRecord : { width : Float, height : Float} -> Dimensions
 fromRecord record =
     Dimensions record.width record.height
 
 
-width : Dimensions -> Float
+width : Dimensions ->Float 
 width (Dimensions widthD _) =
     widthD
 
 
-height : Dimensions -> Float
+height : Dimensions ->Float 
 height (Dimensions _ heightD) =
     heightD
 
@@ -35,6 +36,11 @@ height (Dimensions _ heightD) =
      fromWidthHeight 100 100 == fromRecord { width = 100, height = 100 }
 
 -}
-fromWidthHeight : Float -> Float -> Dimensions
+fromWidthHeight : Float-> Float-> Dimensions
 fromWidthHeight =
     Dimensions
+
+
+toTuple : Dimensions -> ( Float, Float)
+toTuple (Dimensions widthD heightD) =
+    ( widthD, heightD )

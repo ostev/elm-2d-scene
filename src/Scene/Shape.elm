@@ -1,6 +1,5 @@
 module Scene.Shape exposing
-    ( Attribute
-    , Shape
+    ( Shape
     , image
     , quad
     , rectangle
@@ -18,10 +17,6 @@ import Scene.Texture exposing (Texture)
 
 type alias Kind =
     Internal.Shape.Kind
-
-
-type alias Attribute msg =
-    Internal.Shape.Attribute msg
 
 
 type alias Shape msg =
@@ -45,14 +40,14 @@ triangle a b c =
 
 
 quad : Point -> Point -> Point -> Point -> Shape msg
-quad topLeft topRight bottomLeft bottomRight=
+quad topLeft topRight bottomLeft bottomRight =
     triangles
         [ ( topLeft
           , bottomLeft
           , topRight
           )
         , ( bottomLeft
-          , topRight 
+          , topRight
           , bottomRight
           )
         ]
@@ -80,6 +75,6 @@ rectangle size position =
         (Point.fromXY x2 y2)
 
 
-image : List (Attribute msg) -> Texture -> Point -> Shape msg
-image texture position =
-    Debug.todo "`image` not yet implemented."
+image : Texture -> Point -> Shape msg
+image =
+    Internal.Shape.Image
