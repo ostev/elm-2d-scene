@@ -158,11 +158,7 @@ vertexShader =
     |]
 
 
-texturedVertexShader :
-    WebGL.Shader
-        Vertex.Textured
-        TexturedUniforms
-        { v_texcoord : Vec2 }
+texturedVertexShader : WebGL.Shader Vertex.Textured TexturedUniforms { v_texcoord : Vec2 }
 texturedVertexShader =
     [glsl|
         attribute vec2 a_position;
@@ -189,11 +185,7 @@ fragmentShader =
     |]
 
 
-texturedFragmentShader :
-    WebGL.Shader
-        {}
-        TexturedUniforms
-        { v_texcoord : Vec2 }
+texturedFragmentShader : WebGL.Shader {} TexturedUniforms { v_texcoord : Vec2 }
 texturedFragmentShader =
     [glsl|
         precision mediump float;

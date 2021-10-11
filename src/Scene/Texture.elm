@@ -40,7 +40,7 @@ its `Dimensions`.
         metadata "/images/map.jpg" (Dimensions.dimensions 4200 4200)
 
 -}
-metadata : Dimensions -> Location-> Metadata
+metadata : Dimensions -> Location -> Metadata
 metadata =
     Internal.Texture.Metadata
 

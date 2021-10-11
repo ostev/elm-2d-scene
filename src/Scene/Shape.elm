@@ -13,14 +13,14 @@ import Math.Vector2 as Vec2 exposing (Vec2, vec2)
 import Scene.Dimensions as Dimensions exposing (Dimensions)
 import Scene.Point as Point exposing (Point)
 import Scene.Texture exposing (Texture)
+import Internal.Shape.Attributes
 
 
-type alias Kind =
-    Internal.Shape.Kind
 
 
-type alias Shape msg =
-    Internal.Shape.Shape msg
+
+type alias Shape=
+    Internal.Shape.Shape
 
 
 tupleMapThree : (a -> b) -> ( a, a, a ) -> ( b, b, b )
@@ -28,18 +28,18 @@ tupleMapThree f ( x, y, z ) =
     ( f x, f y, f z )
 
 
-triangles : List ( Point, Point, Point ) -> Shape msg
+triangles : List ( Point, Point, Point ) -> Shape
 triangles =
     Internal.Shape.Triangles
         >> Internal.Shape.Shape Color.black
 
 
-triangle : Point -> Point -> Point -> Shape msg
+triangle : Point -> Point -> Point -> Shape
 triangle a b c =
     triangles [ ( a, b, c ) ]
 
 
-quad : Point -> Point -> Point -> Point -> Shape msg
+quad : Point -> Point -> Point -> Point -> Shape
 quad topLeft topRight bottomLeft bottomRight =
     triangles
         [ ( topLeft
@@ -53,7 +53,7 @@ quad topLeft topRight bottomLeft bottomRight =
         ]
 
 
-rectangle : Dimensions -> Point -> Shape msg
+rectangle : Dimensions -> Point -> Shape
 rectangle size position =
     let
         x1 =
@@ -75,6 +75,8 @@ rectangle size position =
         (Point.fromXY x2 y2)
 
 
-image : Texture -> Point -> Shape msg
-image =
-    Internal.Shape.Image
+image : Texture -> Point -> Shape
+image texture =
+    Internal.Shape.Image texture
+    >> Internal.Shape.Shape
+        Internal.Shape.Attributes.default
