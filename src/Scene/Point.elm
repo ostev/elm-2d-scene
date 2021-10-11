@@ -1,8 +1,10 @@
 module Scene.Point exposing
     ( Point
-    , first
     , fromXY
-    , second
+    , getX
+    , getY
+    , setX
+    , setY
     , toVec2
     )
 
@@ -29,8 +31,8 @@ fromXY x y =
      first (point 5 8) == 5
 
 -}
-first : Point -> Float
-first (Point vec) =
+getX : Point -> Float
+getX (Point vec) =
     Vec2.getX vec
 
 
@@ -39,9 +41,19 @@ first (Point vec) =
      second (point 5 8) == 5
 
 -}
-second : Point -> Float
-second (Point vec) =
+getY : Point -> Float
+getY (Point vec) =
     Vec2.getY vec
+
+
+setX : Float -> Point -> Point
+setX x (Point vec) =
+    Point <| vec2 x (Vec2.getY vec)
+
+
+setY : Float -> Point -> Point
+setY y (Point vec) =
+    Point <| vec2 (Vec2.getX vec) y
 
 
 {-| Convert a [`Point`](#Point) to a

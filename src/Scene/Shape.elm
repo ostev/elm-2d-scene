@@ -8,18 +8,15 @@ module Scene.Shape exposing
 
 import Color exposing (Color)
 import Internal.Shape
+import Internal.Shape.Attributes
 import Internal.Vertex as Vertex exposing (Vertex)
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
 import Scene.Dimensions as Dimensions exposing (Dimensions)
 import Scene.Point as Point exposing (Point)
 import Scene.Texture exposing (Texture)
-import Internal.Shape.Attributes
 
 
-
-
-
-type alias Shape=
+type alias Shape =
     Internal.Shape.Shape
 
 
@@ -31,7 +28,9 @@ tupleMapThree f ( x, y, z ) =
 triangles : List ( Point, Point, Point ) -> Shape
 triangles =
     Internal.Shape.Triangles
-        >> Internal.Shape.Shape Color.black
+        >> Internal.Shape.Basic Color.black
+        >> Internal.Shape.Shape
+            Internal.Shape.Attributes.default
 
 
 triangle : Point -> Point -> Point -> Shape
@@ -57,13 +56,13 @@ rectangle : Dimensions -> Point -> Shape
 rectangle size position =
     let
         x1 =
-            Point.first position
+            Point.getX position
 
         x2 =
             x1 + Dimensions.width size
 
         y1 =
-            Point.second position
+            Point.getY position
 
         y2 =
             y1 + Dimensions.height size
@@ -78,5 +77,5 @@ rectangle size position =
 image : Texture -> Point -> Shape
 image texture =
     Internal.Shape.Image texture
-    >> Internal.Shape.Shape
-        Internal.Shape.Attributes.default
+        >> Internal.Shape.Shape
+            Internal.Shape.Attributes.default

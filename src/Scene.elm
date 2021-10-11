@@ -9,19 +9,19 @@ import Scene.Shape exposing (Shape)
 import WebGL
 
 
-type Scene msg
+type Scene
     = Scene
         { camera : Camera
-        , content : List (Shape msg)
+        , content : List Shape
         }
 
 
-fromRecord : { camera : Camera, content : List (Shape msg) } -> Scene msg
+fromRecord : { camera : Camera, content : List Shape } -> Scene
 fromRecord =
     Scene
 
 
-toHtml : List (Html.Attribute msg) -> Scene msg -> Html msg
+toHtml : List (Html.Attribute msg) -> Scene -> Html msg
 toHtml htmlAttributes (Scene { camera, content }) =
     WebGL.toHtml
         ([ Html.Attributes.width

@@ -1,8 +1,8 @@
 module Internal.Shape exposing
-    ( Kind(..)
+    ( Attributes
+    , Kind(..)
     , Shape(..)
     , Type(..)
-    , Attributes
     )
 
 import Color exposing (Color)
@@ -30,7 +30,7 @@ type alias Attributes =
 
 
 type Type
-    = Basic Kind
+    = Basic Color Kind
     | Image Texture Point
 
 

@@ -50,19 +50,19 @@ makeCamera camera =
     Mat4.identity
         |> Mat4.translate
             (vec3
-                (Point.first position)
-                (Point.second position)
+                (Point.getX position)
+                (Point.getY position)
                 0
             )
 
 
-shapeToIdEntity : Mat4 -> Shape msg -> WebGL.Entity
+shapeToIdEntity : Mat4 -> Shape -> WebGL.Entity
 shapeToIdEntity viewProjection shape =
     Debug.todo ""
 
 
-shapeToEntity : Mat4 -> Shape msg -> WebGL.Entity
-shapeToEntity viewProjection shape =
+shapeToEntity : Mat4 -> Shape -> WebGL.Entity
+shapeToEntity viewProjection (Internal.Shape.Shape attributes shapeType) =
     -- let
     --     mesh =
     --         Internal.Shape.toMesh shape
@@ -83,7 +83,7 @@ shapeToEntity viewProjection shape =
     --             fragmentShader
     --             mesh
     --             { u_matrix = viewProjection }
-    case shape of
+    case shapeType of
         Internal.Shape.Image texture position ->
             WebGL.entity
                 texturedVertexShader
@@ -93,13 +93,13 @@ shapeToEntity viewProjection shape =
                         Texture.dimensions texture
 
                     x1 =
-                        Point.first position
+                        Point.getX position
 
                     x2 =
                         x1 + Dimensions.width size
 
                     y1 =
-                        Point.second position
+                        Point.getY position
 
                     y2 =
                         y1 + Dimensions.height size
@@ -119,7 +119,7 @@ shapeToEntity viewProjection shape =
                 , u_texture = Internal.Texture.toWebGLTexture texture
                 }
 
-        Internal.Shape.Shape color kind ->
+        Internal.Shape.Basic color kind ->
             case kind of
                 Internal.Shape.Triangles triangles ->
                     WebGL.entity
