@@ -6,6 +6,7 @@ import Internal.Vertex as Vertex exposing (Vertex)
 import Math.Matrix4 as Mat4 exposing (Mat4)
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
 import Math.Vector3 exposing (vec3)
+import Scene.Angle as Angle
 import Scene.Camera as Camera exposing (Camera)
 import Scene.Dimensions as Dimensions exposing (Dimensions)
 import Scene.Point as Point exposing (Point)
@@ -56,33 +57,27 @@ makeCamera camera =
             )
 
 
-shapeToIdEntity : Mat4 -> Shape -> WebGL.Entity
-shapeToIdEntity viewProjection shape =
-    Debug.todo ""
+calculateMatrix : Mat4 -> Internal.Shape.Attributes -> Mat4
+calculateMatrix viewProjection attributes =
+    viewProjection
+        |> Mat4.translate
+            (vec3
+                (Point.getX attributes.translation)
+                (Point.getY attributes.translation)
+                0
+            )
+        |> Mat4.rotate (Angle.toRadians attributes.rotation) (vec3 1 0 0)
+        |> Mat4.scale (vec3 attributes.scale.x attributes.scale.y 1)
 
 
 shapeToEntity : Mat4 -> Shape -> WebGL.Entity
 shapeToEntity viewProjection (Internal.Shape.Shape attributes shapeType) =
-    -- let
-    --     mesh =
-    --         Internal.Shape.toMesh shape
-    -- in
-    -- case Internal.Shape.toTexture shape of
-    --     Just texture ->
-    --         WebGL.entity
-    --             texturedVertexShader
-    --             texturedFragmentShader
-    --             mesh
-    --             { u_matrix = viewProjection
-    --             , u_texture =
-    --                 Internal.Texture.toWebGLTexture
-    --                     texture
-    --             }
-    --     Nothing ->
-    --         WebGL.entity vertexShader
-    --             fragmentShader
-    --             mesh
-    --             { u_matrix = viewProjection }
+    let
+        matrix =
+            calculateMatrix
+                viewProjection
+                attributes
+    in
     case shapeType of
         Internal.Shape.Image texture position ->
             WebGL.entity
@@ -115,7 +110,7 @@ shapeToEntity viewProjection (Internal.Shape.Shape attributes shapeType) =
                       )
                     ]
                 )
-                { u_matrix = viewProjection
+                { u_matrix = matrix
                 , u_texture = Internal.Texture.toWebGLTexture texture
                 }
 
@@ -130,7 +125,7 @@ shapeToEntity viewProjection (Internal.Shape.Shape attributes shapeType) =
                             triangles
                             |> WebGL.triangles
                         )
-                        { u_matrix = viewProjection }
+                        { u_matrix = matrix }
 
                 Internal.Shape.Circle _ _ ->
                     Debug.todo "Circles not yet implemented"

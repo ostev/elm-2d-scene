@@ -7,10 +7,12 @@ module Scene.Shape exposing
     )
 
 import Color exposing (Color)
+import Html.Attributes exposing (type_)
 import Internal.Shape
 import Internal.Shape.Attributes
 import Internal.Vertex as Vertex exposing (Vertex)
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
+import Scene.Angle as Angle exposing (Angle)
 import Scene.Dimensions as Dimensions exposing (Dimensions)
 import Scene.Point as Point exposing (Point)
 import Scene.Texture exposing (Texture)
@@ -79,3 +81,27 @@ image texture =
     Internal.Shape.Image texture
         >> Internal.Shape.Shape
             Internal.Shape.Attributes.default
+
+
+translate : Point -> Shape -> Shape
+translate point (Internal.Shape.Shape attributes shapeType) =
+    Internal.Shape.Shape
+        { attributes | translation = Point.add attributes.translation point }
+        shapeType
+
+
+rotate : Angle -> Shape -> Shape
+rotate angle (Internal.Shape.Shape attributes shapeType) =
+    Internal.Shape.Shape
+        { attributes | rotation = Angle.mul attributes.rotation angle }
+        shapeType
+
+
+scale : Float -> Float -> Shape -> Shape
+scale scaleX scaleY (Internal.Shape.Shape attributes shapeType) =
+    Internal.Shape.Shape
+        { attributes
+            | scale =
+                { x = 0, y = 0 }
+        }
+        shapeType

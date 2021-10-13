@@ -1,5 +1,6 @@
 module Scene.Point exposing
     ( Point
+    , add
     , fromXY
     , getX
     , getY
@@ -67,3 +68,8 @@ would be to pass a [`Point`](#Point) to a
 toVec2 : Point -> Vec2
 toVec2 (Point vec) =
     vec
+
+
+add : Point -> Point -> Point
+add (Point vector1) (Point vector2) =
+    Point <| Vec2.add vector1 vector2

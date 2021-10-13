@@ -1,4 +1,10 @@
-module Scene.Angle exposing (Angle, degrees, radians)
+module Scene.Angle exposing
+    ( Angle
+    , degrees
+    , mul
+    , radians
+    , toRadians
+    )
 
 
 type Angle
@@ -15,3 +21,18 @@ degrees r =
     (r / 180)
         * pi
         |> radians
+
+
+toRadians : Angle -> Float
+toRadians (Angle r) =
+    r
+
+
+
+-- toDegrees : Angle -> Float
+-- toDegrees (Angle r) =
+
+
+mul : Angle -> Angle -> Angle
+mul (Angle x) (Angle y) =
+    radians <| x * y

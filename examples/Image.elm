@@ -6,6 +6,7 @@ import Html.Attributes exposing (style)
 import Html.Events
 import Math.Vector2 as Vec2 exposing (Vec2, vec2)
 import Scene
+import Scene.Angle as Angle exposing (Angle)
 import Scene.Camera as Camera exposing (Camera)
 import Scene.Dimensions as Dimensions exposing (Dimensions)
 import Scene.Point as Point exposing (Point)
@@ -21,6 +22,8 @@ main =
             \_ ->
                 ( { texture = Nothing
                   , camera = Camera.fromRecord { dimensions = dimensions, position = Point.fromXY 0 0 }
+                  , rotation = Angle.radians 0
+                  , scale = 1
                   }
                 , Texture.load
                     (Texture.metadata (Dimensions.fromWidthHeight 640 425)
@@ -37,6 +40,8 @@ main =
 type alias Model =
     { texture : Maybe Texture
     , camera : Camera
+    , rotation : Angle
+    , scale : Float
     }
 
 
@@ -45,6 +50,8 @@ type Msg
     | LoadTexture (Result Texture.Error Texture)
     | SetX Int
     | SetY Int
+    | SetRotation
+    | SetScale
 
 
 dimensions : Dimensions
@@ -133,6 +140,22 @@ view model =
                     |> Point.getY
                     |> String.fromFloat
                 )
+            ]
+            []
+        , Html.label [ Html.Attributes.for "rotation", style "display" "block" ] [ Html.text "Set the Y position" ]
+        , Html.input
+            [ style "display" "block"
+            , Html.Attributes.id "rotation"
+            , Html.Attributes.type_ "range"
+            , Html.Events.onInput
+                (String.toInt
+                    >> Maybe.map SetRotation
+                    >> Maybe.withDefault NoOp
+                )
+            , Html.Attributes.min "0"
+            , Html.Attributes.max "360"
+            , Html.Attributes.value
+                model.rotation
             ]
             []
         ]
