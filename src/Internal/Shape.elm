@@ -20,8 +20,7 @@ type Kind
 
 
 type alias Attributes =
-    { translation : Point
-    , rotation : Angle
+    { rotation : Angle
     , scale :
         { x : Float
         , y : Float
