@@ -3,6 +3,8 @@ module Scene.Shape exposing
     , image
     , quad
     , rectangle
+    , rotate
+    , scale
     , triangle
     )
 
@@ -93,7 +95,7 @@ translate point (Internal.Shape.Shape attributes shapeType) =
 rotate : Angle -> Shape -> Shape
 rotate angle (Internal.Shape.Shape attributes shapeType) =
     Internal.Shape.Shape
-        { attributes | rotation = Angle.mul attributes.rotation angle }
+        { attributes | rotation = Angle.add attributes.rotation angle }
         shapeType
 
 
@@ -102,6 +104,8 @@ scale scaleX scaleY (Internal.Shape.Shape attributes shapeType) =
     Internal.Shape.Shape
         { attributes
             | scale =
-                { x = 0, y = 0 }
+                { x = scaleX * attributes.scale.x
+                , y = scaleY * attributes.scale.y
+                }
         }
         shapeType

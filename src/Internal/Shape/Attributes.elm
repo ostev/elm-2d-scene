@@ -8,6 +8,6 @@ import Scene.Point as Point exposing (Point)
 default : Internal.Shape.Attributes
 default =
     { translation = Point.fromXY 0 0
-    , rotation = Angle.radians 0
+    , rotation = Angle.degrees 0
     , scale = { x = 1, y = 1 }
     }

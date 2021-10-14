@@ -66,7 +66,7 @@ calculateMatrix viewProjection attributes =
                 (Point.getY attributes.translation)
                 0
             )
-        |> Mat4.rotate (Angle.toRadians attributes.rotation) (vec3 1 0 0)
+        |> Mat4.rotate (Angle.toRadians attributes.rotation) (vec3 0 0 1)
         |> Mat4.scale (vec3 attributes.scale.x attributes.scale.y 1)
 
 
