@@ -50,8 +50,8 @@ type Msg
     | LoadTexture (Result Texture.Error Texture)
     | SetX Int
     | SetY Int
-    | SetRotation
-    | SetScale
+    | SetRotation Angle
+    | SetScale Float
 
 
 dimensions : Dimensions
@@ -84,6 +84,16 @@ update msg model =
             , Cmd.none
             )
 
+        SetRotation newRotation ->
+            ( { model | rotation = newRotation }
+            , Cmd.none
+            )
+
+        SetScale newScale ->
+            ( { model | scale = newScale }
+            , Cmd.none
+            )
+
 
 view : Model -> Html Msg
 view model =
@@ -98,13 +108,21 @@ view model =
                 , content =
                     case model.texture of
                         Just texture ->
-                            [ Shape.image texture (Point.fromXY 0 0) ]
+                            [ Shape.image texture (Point.fromXY 0 0)
+                                |> Shape.rotate model.rotation
+                                |> Shape.scale model.scale model.scale
+                            ]
 
                         Nothing ->
                             []
                 }
             )
-        , Html.label [ Html.Attributes.for "x", style "display" "block" ] [ Html.text "Set the X position" ]
+        , Html.label
+            [ Html.Attributes.for "x"
+            , style "display" "block"
+            ]
+            [ Html.text "Set the X position"
+            ]
         , Html.input
             [ style "display" "block"
             , Html.Attributes.id "x"
@@ -123,7 +141,12 @@ view model =
                 )
             ]
             []
-        , Html.label [ Html.Attributes.for "y", style "display" "block" ] [ Html.text "Set the Y position" ]
+        , Html.label
+            [ Html.Attributes.for "y"
+            , style "display" "block"
+            ]
+            [ Html.text "Set the Y position"
+            ]
         , Html.input
             [ style "display" "block"
             , Html.Attributes.id "y"
@@ -142,20 +165,53 @@ view model =
                 )
             ]
             []
-        , Html.label [ Html.Attributes.for "rotation", style "display" "block" ] [ Html.text "Set the Y position" ]
+        , Html.label
+            [ Html.Attributes.for "rotation"
+            , style "display" "block"
+            ]
+            [ Html.text "Set the rotation of the image"
+            ]
         , Html.input
             [ style "display" "block"
             , Html.Attributes.id "rotation"
             , Html.Attributes.type_ "range"
             , Html.Events.onInput
-                (String.toInt
+                (String.toFloat
+                    >> Maybe.map Angle.degrees
                     >> Maybe.map SetRotation
                     >> Maybe.withDefault NoOp
                 )
             , Html.Attributes.min "0"
             , Html.Attributes.max "360"
             , Html.Attributes.value
-                model.rotation
+                (model.rotation
+                    |> Angle.toDegrees
+                    |> String.fromFloat
+                )
+            ]
+            []
+        , Html.label
+            [ Html.Attributes.for "scale"
+            , style "display" "block"
+            ]
+            [ Html.text "Set the scale of the image"
+            ]
+        , Html.input
+            [ style "display" "block"
+            , Html.Attributes.id "scale"
+            , Html.Attributes.type_ "range"
+            , Html.Events.onInput
+                (String.toFloat
+                    >> Maybe.map SetScale
+                    >> Maybe.withDefault NoOp
+                )
+            , Html.Attributes.min "0.1"
+            , Html.Attributes.max "5"
+            , Html.Attributes.step "0.05"
+            , Html.Attributes.value
+                (model.scale
+                    |> String.fromFloat
+                )
             ]
             []
         ]
